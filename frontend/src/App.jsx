@@ -1,15 +1,18 @@
 import { BrowserRouter as Router,Route,Routes } from 'react-router-dom'
+import Login from './pages/Login'
+import Register from './pages/Register'
+
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
+    <>
     <Router>
-      <AuthProvider>
         <Routes>
-          <Route></Route>
+        <Route path='/' element={<Login/>}></Route>
+        <Route path='/registro' element={<Register/>}></Route>
         </Routes>
-      </AuthProvider>
     </Router>
+    </>
   )
 }
 
