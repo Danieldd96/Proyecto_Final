@@ -19,7 +19,7 @@ const Login = ()=>{
     }
 
     return(
-    <div className="register" >
+    <div className="overlay" >
         <div className="wrapper" id="menu2">
             <div className="login" >
                 <form onSubmit={handleSubmit}>

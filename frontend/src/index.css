@@ -2,16 +2,46 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
+.register{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%; /* Mitad derecha */
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #16191C;
+  
+}
+.wrapper {
+  width: 420px;
+  border-radius: 10px;
+  padding: 30px 40px;
+  overflow: hidden;
+}
+.wrapper .input-box{
+  position: relative;
+  width: 100%;
+  margin: 50px 0;
+}
+.input-box input{
+  width: 70%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #ffffff;
+  padding: 20px 45px 20px 20px;
+}
+
 
 a {
   font-weight: 500;
@@ -24,10 +54,14 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 40%;
+  height: 100%;
+  background-color: #16191C; 
 }
 
 h1 {
@@ -42,7 +76,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #0F0068;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -52,17 +86,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
