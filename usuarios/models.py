@@ -1,7 +1,4 @@
 from django.db import models
-from django.utils import timezone
-from django.contrib.auth.hashers import make_password
-
 
 # Create your models here.
 class DatosUsuario(models.Model):
@@ -19,7 +16,7 @@ class DatosUsuario(models.Model):
 class Usuario(models.Model):
     mail_user = models.EmailField(max_length=255, unique=True)
     contrasena = models.CharField(max_length=128) 
-    datos = models.OneToOneField(DatosUsuario, on_delete=models.CASCADE, related_name='usuario')
+    datos = models.ForeignKey("DatosUsuario", on_delete=models.CASCADE)
     fecha_de_creacion = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True)  # Para activar/desactivar usuario
 
@@ -29,10 +26,3 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.mail_user
-
-    def set_password(self, raw_password):
-        self.contrasena = make_password(raw_password)  # Almacena la contraseña encriptada
-
-    def check_password(self, raw_password):
-        from django.contrib.auth.hashers import check_password
-        return check_password(raw_password, self.contrasena) 
