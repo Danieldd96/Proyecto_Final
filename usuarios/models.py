@@ -14,9 +14,10 @@ class DatosUsuario(models.Model):
         return f'{self.nombre} {self.apellidos}'
 
 class Usuario(models.Model):
+    user = models.CharField(max_length=255,unique=True,blank=True,null=True)
     mail_user = models.EmailField(max_length=255, unique=True)
     contrasena = models.CharField(max_length=128) 
-    datos = models.ForeignKey("DatosUsuario", on_delete=models.CASCADE)
+    datos = models.ForeignKey("DatosUsuario", on_delete=models.CASCADE,null=True,blank=True)
     fecha_de_creacion = models.DateTimeField(auto_now_add=True)
     activo = models.BooleanField(default=True)  # Para activar/desactivar usuario
 

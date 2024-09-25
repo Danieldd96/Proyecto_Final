@@ -1,7 +1,10 @@
 import { useState } from "react"
-import { Link, Navigate } from "react-router-dom"
 import validation from "../utils/LoginValidation"
-
+import { useNavigate } from "react-router-dom"
+import { useContext, useEffect } from "react"
+import { Link } from "react-router-dom"
+import { Get } from "../hooks/Get"
+import { AuthContext } from "../contexts/AuthProvider"
 
 const Login = ()=>{
     const [values,setValues]=useState({
@@ -15,8 +18,40 @@ const Login = ()=>{
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+        setEmail(e.target.value)
+        setClave(e.target.value)
         setErrors(validation(values))
     }
+
+    const navegar = useNavigate();                 ///navegar sera el que se utilizara para pasar a otra pagina al completar una funcion
+    const [email, setEmail] = useState("");        ///Con este UseState obtendre el contenido del input en el cual se obtendra el email
+    const [clave, setClave] = useState("");        ///Con este UseState obtendre el contenido del input en el cual se obtendra el la contraseña
+    const {login} = useContext(AuthContext);       ///Con este UseContext verificare cuales rutas seran privadas
+    const [datos,setDatos]= useState("")
+    let apiUrl="http://127.0.0.1:8000/api/v2/user/usuarios/"      ///Api que contendra los datos de los usuarios que se hayan registrado previamente
+    useEffect(()=>{
+      obtener()
+    },[])
+    async function obtener() {
+      const data= await Get(apiUrl)
+       setDatos(data)
+    }
+    console.log(datos)
+    const Guardar = async () => {
+      if (!email==""&&!clave=="") {
+        const user=datos.find((user)=>user.mail_user==email)
+        console.log("Usuario encontrado",user)
+        if (user.contrasena==clave) {
+         localStorage.setItem("email",user.mail_user)
+         localStorage.setItem("idUsuario",user.id)
+         localStorage.setItem("usuario",user.user)
+         navegar('/home')
+         login()
+        }
+      } else {
+        alert('Usuario o contraseña incorrectos')
+      }
+    };  
 
     return(
     <div className="overlay" >
@@ -47,7 +82,7 @@ const Login = ()=>{
                             <p>No tienes una cuenta? <Link to="/registro" className="registerBtn">Register</Link></p>
                         </div>
 
-                        <button type="submit"  className="btn">Login</button>
+                        <button type="submit" onClick={Guardar} className="btn">Login</button>
                 </form>
             </div>
         </div>

@@ -15,11 +15,7 @@ function validation(values) {
     if (values.password === "") {
         error.password = "LLenar el espacio"
     }
-    else if (!password_pattern.test(values.password)) {
-        error.password="Contraseña no correcta"
-    }else{
-        error.password=""
-    }
+
     return error
     
 }
