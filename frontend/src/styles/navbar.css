@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navbarIzquierdo,
+.navbarDerecho{
+    display: flex;
+    gap: 20px;
+}
+
+.navbarCentro {
+    text-align: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.face:hover{
+  background-color: beige;
+  box-shadow: 0 0 5px #001a57,
+  0 0 20px #001a57,
+  0 0 30px #0a0a0a;
+  border: solid;
+}
+
+.insta:hover{
+  background: #833ab4;
+  background: linear-gradient(to right,#833ab4,#fd1d1d,#fcb045);
+  box-shadow: 0 0 5px #b5c2e1,
+  0 0 20px #e6edfd,
+  0 0 30px #0a0a0a;
+}
+
+.what:hover{
+  background-color: rgba(0, 128, 0, 0.644);
+  color: #fff;
+  box-shadow: 0 0 5px #0cba20,
+  0 0 20px #0cba20,
+  0 0 30px #0a0a0a;
+  border: solid;
+}
+
+
+.cart-icon,
+.redes-icon {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+.face {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.cart-icon:hover,
+.redes-icon:hover {
+    color: gray;
+}
+
+.login-btn,
+.register-btn {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.login-btn:hover,
+.register-btn:hover {
+    background-color: white;
+    color: black;
+}
