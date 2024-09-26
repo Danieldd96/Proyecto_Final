@@ -45,7 +45,6 @@
   box-shadow: 0 0 5px #001a57,
   0 0 20px #001a57,
   0 0 30px #0a0a0a;
-  border: solid;
 }
 
 .insta:hover{
@@ -62,24 +61,30 @@
   box-shadow: 0 0 5px #0cba20,
   0 0 20px #0cba20,
   0 0 30px #0a0a0a;
-  border: solid;
 }
 
 
-.cart-icon,
-.redes-icon {
+.cart-icon{
     color: white;
     text-decoration: none;
     font-size: 20px;
+    border: solid white 2px;
+    border-radius: 10%;
+    padding: 2px 8px 0px 5px;   
 }
-.face {
+.what,
+.insta,
+.face{
     color: white;
     text-decoration: none;
     font-size: 20px;
+    border: solid white 2px;
+    border-radius: 10%;
+    padding: 2px 8px 0px 5px;
+    
 }
 
-.cart-icon:hover,
-.redes-icon:hover {
+.cart-icon:hover{
     color: gray;
 }
 
