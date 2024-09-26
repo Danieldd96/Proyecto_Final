@@ -5,11 +5,27 @@
   color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
 }
+.alert {
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  width: 60%;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
 .register{
   position: absolute;
   top: 0;
   right: 0;
-  width: 50%; /* Mitad derecha */
+  width: 40%; 
   height: 100%;
   border: none;
   outline: none;
