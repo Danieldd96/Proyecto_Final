@@ -47,7 +47,7 @@ const Carrusel = () => {
     };
   
     return (
-      <div className="carrusel">
+      <div className="carrusel" style={{border:"solid 1px",borderColor:"white"}}>
         <div className={`diapositiva ${visible ? 'visible' : ''}`} style={{ backgroundImage: `url(${diapositivas[indice].imagenFondo})` }}>
           <div className="contenido">
             <Link to={diapositivas[indice].link}>
