@@ -5,7 +5,6 @@ import AuthProvider from './contexts/AuthProvider'
 import Home from './pages/Home'
 import 'boxicons'
 
-
 function App() {
 
   return (
@@ -14,8 +13,8 @@ function App() {
       <AuthProvider>
       <Routes>
       <Route path='/' element={<Login/>}></Route>
-      <Route path='/home' element={<Home/>}></Route>
       <Route path='/registro' element={<Register/>}></Route>
+      <Route path='/home' element={<Home/>}></Route>
       </Routes>
       </AuthProvider>
     </Router>
