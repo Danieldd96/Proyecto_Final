@@ -1,10 +1,12 @@
 import React from 'react'
-
-import {Box,Card,Inset,Strong,Text,Button,Heading } from '@radix-ui/themes'
+import { useState } from 'react'
+import { Box,Card,Inset,Strong,Text,Button,Heading } from '@radix-ui/themes'
+import '../styles/Casillas.css';
 
 function Casillas() {
+  const [Hover,setHover]=useState(false);
   return (
-    <Box maxWidth="240px" >
+    <Box maxWidth="240px" className='caja-producto' onMouseEnter={()=>setHover(true)} onMouseLeave={()=> setHover(false)}>
       
   <Card size="2">
     <Inset clip="padding-box" side="top" pb="current">
@@ -23,7 +25,7 @@ function Casillas() {
     <Text as="p" size="3">
       <Strong>Nombre</Strong> - Precio
     </Text>
-    <div>
+    <div className={`producto-modal ${Hover ? 'visible' : ''}`}>
       <Heading>Producto Nombre</Heading>
       <Text as='p'>Precio unidad:Precio</Text>
       <Text as='p'>Cantidad</Text>

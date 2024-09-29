@@ -1,0 +1,30 @@
+.caja-producto {
+  position: relative;
+  overflow: hidden;
+}
+  
+.producto-modal {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 12px;
+  transition: all 0.3s ease;
+  z-index: 2;
+  opacity: 0; 
+}
+
+.producto-modal.visible {
+  bottom: 0;
+  opacity: 1;
+}
+
+.caja-producto img {
+  transition: transform 0.3s ease;
+}
+  
+.caja-producto:hover img {
+  transform: scale(1.1);
+}
+  
