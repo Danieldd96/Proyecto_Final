@@ -98,3 +98,40 @@
     background-color: white;
     color: black;
 }
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.search-icon {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.search-icon:hover {
+    color: gray;
+}
+
+.search-input {
+    width: 200px;
+    opacity: 1;
+    height: 30px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 2px solid white;
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: white;
+    opacity: 0.7;
+}

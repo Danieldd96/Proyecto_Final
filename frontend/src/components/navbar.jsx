@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../styles/navbar.css';
 
 const Navbar = () => {
     const [consulta, setConsulta] = useState('');
     const [mostrarbusqueda, setmostrarbusqueda] = useState(false); // Estado para mostrar y ocultar input de búsqueda
+    const [placeholder, setPlaceholder] = useState(0);
+
+
+    const placeholders = [
+        "Buscar bicicletas",
+        "Buscar piezas",
+        "Buscar herramientas",
+        "Buscar nutrición",
+        "Buscar ropa",
+        "Buscar partes"
+    ];
 
     const Mostrarbuscador = () => {
         setmostrarbusqueda(!mostrarbusqueda);
@@ -19,6 +30,14 @@ const Navbar = () => {
             alert(`Buscando: ${consulta}`); 
         }
     };
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPlaceholder((prevIndex) => (prevIndex + 1) % placeholders.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <nav className="navbar">
             <div className="navbarIzquierdo">
@@ -39,6 +58,7 @@ const Navbar = () => {
                             type="text"
                             className="search-input"
                             value={consulta}
+                            placeholder={placeholders[placeholder]}
                             onChange={(e) => setConsulta(e.target.value)}
                             onKeyDown={inputEnter}
                         />
