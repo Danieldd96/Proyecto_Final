@@ -15,27 +15,6 @@ function Home() {
       <h1 >Productos Destacados Bicicletas<Link style={{marginLeft:400,fontSize:20}}>Ver Todo</Link></h1>
       <Grid columns="4" width="auto" gap="4" p={"9"}>
         <Casillas />
-        <Casillas />
-        <Casillas />
-        <Casillas />
-      </Grid>
-      </div>
-      <div style={{padding:50, margin:0}}>
-      <h1>Productos Destacados Piezas<Link style={{marginLeft:400,fontSize:20}}>Ver Todo</Link></h1>
-      <Grid columns="4" width="auto" gap="4" p={"9"}>
-        <Casillas />
-        <Casillas />
-        <Casillas />
-        <Casillas />
-      </Grid>
-      </div>
-      <div style={{padding:50, margin:0}}>
-      <h1>Productos Destacados Ropa<Link style={{marginLeft:400,fontSize:20}}>Ver Todo</Link></h1>
-      <Grid columns="4" width="auto" gap="4" p={"9"}>
-        <Casillas />
-        <Casillas />
-        <Casillas />
-        <Casillas />
       </Grid>
       </div>
       </div>

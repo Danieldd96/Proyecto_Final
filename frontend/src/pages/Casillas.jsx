@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Box,Card,Inset,Strong,Text } from '@radix-ui/themes'
+import {Box,Card,Inset,Strong,Text,Button,Heading } from '@radix-ui/themes'
 
 function Casillas() {
   return (
@@ -21,9 +21,24 @@ function Casillas() {
       />
     </Inset>
     <Text as="p" size="3">
-      <Strong>Typography</Strong> is the art and technique of arranging type to
-      make written language legible, readable and appealing when displayed.
+      <Strong>Nombre</Strong> - Precio
     </Text>
+    <div>
+      <Heading>Producto Nombre</Heading>
+      <Text as='p'>Precio unidad:Precio</Text>
+      <Text as='p'>Cantidad</Text>
+      <input 
+      type="number"
+      // value=
+      // onChange={}
+      min="1"
+      max="5"
+      />
+      <Text as='p' style={{marginTop:"10px"}}>Precio Total: Precio</Text>
+      <Box>
+        <Button>Agregar al carrito</Button>
+      </Box>
+    </div>
   </Card>
 </Box>
 
