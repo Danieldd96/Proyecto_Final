@@ -8,8 +8,11 @@ import '@radix-ui/themes/styles.css';
 import { Theme,ThemePanel } from '@radix-ui/themes';
 import Info from './components/info'
 import '@radix-ui/themes'
-function App() {
+import Contact from './pages/Contact'
 
+
+function App() {
+Contact
   return (
     <>
     <Router>
@@ -19,6 +22,7 @@ function App() {
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/registro' element={<Register/>}></Route>
+      <Route path='/info' element={<Contact/>}></Route>
       </Routes>
       </AuthProvider>
       </Theme>

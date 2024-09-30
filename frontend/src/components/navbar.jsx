@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import '../styles/navbar.css';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [consulta, setConsulta] = useState('');
@@ -65,7 +65,7 @@ const Navbar = () => {
             </div>
 
             <div className="navbarCentro">
-                <a href="#" className="logo">LOGO</a>
+                <Link className="logo" to="/">LOGO</Link>
             </div>
 
             <div className="navbarDerecho">
@@ -109,6 +109,7 @@ const Navbar = () => {
                             <DropdownMenu.Item>Historial mantenimiento</DropdownMenu.Item>
                             <DropdownMenu.Item>Historial facturas</DropdownMenu.Item>
                             <DropdownMenu.Item>Ajustes</DropdownMenu.Item>
+                            <DropdownMenu.Item ><Link to="/info">acerca de</Link></DropdownMenu.Item>
                             <DropdownMenu.Separator />
                             <DropdownMenu.Item onClick={cerrarSesion} className="logout-item">
                                 Cerrar sesión
