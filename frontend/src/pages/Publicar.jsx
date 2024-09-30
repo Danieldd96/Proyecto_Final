@@ -1,9 +1,6 @@
 import React from 'react'
 
-function Productos() {
-    
-
-
+function Publicar() {
   return (
     <div>
       
@@ -11,4 +8,4 @@ function Productos() {
   )
 }
 
-export default Productos
+export default Publicar

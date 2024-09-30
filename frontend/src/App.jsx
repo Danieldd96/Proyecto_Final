@@ -9,6 +9,7 @@ import { Theme,ThemePanel } from '@radix-ui/themes';
 import Info from './components/info'
 import '@radix-ui/themes'
 import Contact from './pages/Contact'
+import Publicar from './pages/Publicar'
 
 
 function App() {
@@ -23,6 +24,7 @@ Contact
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/registro' element={<Register/>}></Route>
       <Route path='/info' element={<Contact/>}></Route>
+      <Route path='/publicar' element={<Publicar/>}></Route>
       </Routes>
       </AuthProvider>
       </Theme>

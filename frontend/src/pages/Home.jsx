@@ -4,6 +4,7 @@ import Carrusel from '../components/carrusel'
 import "../styles/home.css"
 import Casillas from './Casillas'
 import { Grid,Link } from '@radix-ui/themes'
+import ScrollButton from '../components/ScrollButton'
 
 function Home() {
   const productosBicicletas = [
@@ -17,6 +18,7 @@ function Home() {
     <div style={{border:"solid 1px",borderColor:"white"}}>
       <Navbar />
       <Carrusel/>
+      <ScrollButton />
       <div className='home'>
       <div style={{padding:50, margin:0}}>
       <h1 >Productos Destacados Bicicletas<Link style={{marginLeft:400,fontSize:20}}>Ver Todo</Link></h1>
