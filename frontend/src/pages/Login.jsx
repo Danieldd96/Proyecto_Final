@@ -56,7 +56,7 @@ const Login = () => {
       setMensaje("Inicio de sesión exitoso.");
       setMensajeTipo("success");
       setTimeout(() => {
-          navegar('/home');
+          navegar('/');
           login();
       }, 2000);
   };

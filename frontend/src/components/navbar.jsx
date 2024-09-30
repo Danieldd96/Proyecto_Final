@@ -1,10 +1,15 @@
 import React, { useState,useEffect } from 'react';
 import '../styles/navbar.css';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
+
 
 const Navbar = () => {
     const [consulta, setConsulta] = useState('');
     const [mostrarbusqueda, setmostrarbusqueda] = useState(false); // Estado para mostrar y ocultar input de búsqueda
     const [placeholder, setPlaceholder] = useState(0);
+    const [user, setUser] = useState(null);
+
 
 
     const placeholders = [
@@ -38,6 +43,19 @@ const Navbar = () => {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const idUsuario = localStorage.getItem('idUsuario');
+        const email = localStorage.getItem('email');
+        if (idUsuario && email) {
+            setUser({ idUsuario, email });
+        }
+    }, []);
+
+    const cerrarSesion = () => {
+        localStorage.clear();
+        window.location.reload();
+    };
+
     return (
         <nav className="navbar">
             <div className="navbarIzquierdo">
@@ -69,8 +87,41 @@ const Navbar = () => {
                 <a href="#" className="face"><box-icon  type='logo' name='facebook-circle' color="rgb(55, 55, 203)"></box-icon></a>
                 <a href="#" className="insta"><box-icon type='logo' name='instagram-alt' color="#fff"></box-icon></a>
                 <a href="#" className="what"><box-icon type='logo' name='whatsapp' color="#00ff00"></box-icon></a>
-                <a href="#" className="login-btn">Iniciar Sesión</a>
-                <a href="#" className="register-btn">Registrarse</a>
+                {user ? (
+                    <DropdownMenu.Root>
+                        <DropdownMenu.Trigger asChild>
+                            <Avatar className="avatar">
+                                <AvatarImage src="src/img/marzo.png" alt="User Avatar" />
+                                <AvatarFallback>{user.email[0].toUpperCase()}</AvatarFallback>
+                            </Avatar>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Content className="dropdown-content">
+                            <div className="user-info">
+                                <Avatar className="avatar">
+                                    <AvatarImage src="src/img/marzo.png" alt="User Avatar" />
+                                    <AvatarFallback>{user.email[0].toUpperCase()}</AvatarFallback>
+                                </Avatar>
+                                <p>{user.email}</p>
+                            </div>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item>Datos de usuario</DropdownMenu.Item>
+                            <DropdownMenu.Item>Mi calendario</DropdownMenu.Item>
+                            <DropdownMenu.Item>Historial mantenimiento</DropdownMenu.Item>
+                            <DropdownMenu.Item>Historial facturas</DropdownMenu.Item>
+                            <DropdownMenu.Item>Ajustes</DropdownMenu.Item>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item onClick={cerrarSesion} className="logout-item">
+                                Cerrar sesión
+                            </DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Root>
+                ) : (
+                    <>
+                        <a href="/login" className="login-btn">Iniciar Sesión</a>
+                        <a href="/registro" className="register-btn">Registrarse</a>
+                    </>
+                )}
+
             </div>
         </nav>
     );
