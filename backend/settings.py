@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'coreapi',
     'usuarios',
-    'api'
+    'api',
+    'Productos',
+    'tiendas'
 ]
 
 CORS_ALLOWED_ALL_ORIGINS = True

@@ -12,6 +12,8 @@ const Publicar = () => {
     precio: "",
     description: "",
     fecha: "",
+    ubicacion_producto: "",
+    cantidad: "",
     img: "",
     category: "",
   });
@@ -76,6 +78,14 @@ const Publicar = () => {
                 <TextField.Root>
                   <label name="fecha" value={productData.fecha} onChange={inputCambio} type="date" required />
                 </TextField.Root>
+
+                <label>Ubicación del producto</label>
+                <TextField.Root>
+                  <label name="ubicacion_producto" value={productData.ubicacion_producto} onChange={inputCambio} required />
+                </TextField.Root>
+
+                <label>Cantidad</label>
+                  <input name="cantidad" value={productData.cantidad} onChange={inputCambio} type="number" required />
 
                 <label>Adjuntar Imagen</label>
                 <input type="file" onChange={convertidorImg} required />

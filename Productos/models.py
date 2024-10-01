@@ -1,43 +1,46 @@
 from django.db import models
-
+from tiendas.models import Tienda
+from usuarios.models import Usuario
 # Create your models here.
 class Categoria(models.Model):
-    id_producto=models.ForeignKey('id_producto',on_delete=models.CASCADE)
+    producto=models.ForeignKey('Productos', on_delete=models.CASCADE, related_name='categorias')
     tipo=models.CharField(max_length=255)
-    
+
     class Meta:
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'
 
     def __str__(self):
         return self.tipo
-    
+
 class Productos(models.Model):
-    id_categoria=models.ForeignKey('id_categoria',on_delete=models.CASCADE)
-    nombre=models.CharField(max_length=255)
-    precio=models.IntegerField()
-    cantidad=models.IntegerField()
-    ubicacion_producto=models.CharField(max_length=255,default="Hub Comunal")
+    nombre = models.CharField(max_length=255)
+    precio = models.IntegerField()
+    descripcion = models.CharField(max_length=255)
+    fecha = models.DateField()
+    ubicacion_producto = models.CharField(max_length=255, default="Hub Comunal")
+    cantidad = models.IntegerField()
     imagen = models.ImageField()
-    
+
     class Meta:
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
 
     def __str__(self):
         return self.nombre
-    
+
+
 class Resenas(models.Model):
-    id_tienda=models.ForeignKey('id_tienda',on_delete=models.CASCADE)
-    id_user=models.ForeignKey('id_user',on_delete=models.CASCADE)
-    puntuacion=models.SmallIntegerField()
-    comentario=models.CharField(max_length=255)
-    fecha_publicacion=models.DateField()
-    
+    tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Productos, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE) 
+    puntuacion = models.SmallIntegerField()
+    comentario = models.CharField(max_length=255)
+    fecha_publicacion = models.DateField()
+
     class Meta:
         verbose_name = 'Reseña'
         verbose_name_plural = 'Reseñas'
 
     def __str__(self):
-        return f'Reseña de {self.user} - Puntuación: {self.puntuacion}'
-    
+        return self.comentario
