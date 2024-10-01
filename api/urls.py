@@ -6,6 +6,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'programmers',views.ProgrammerViewSet)
 
+
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]
