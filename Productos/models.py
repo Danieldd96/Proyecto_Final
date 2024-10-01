@@ -17,7 +17,8 @@ class Productos(models.Model):
     nombre=models.CharField(max_length=255)
     precio=models.IntegerField()
     cantidad=models.IntegerField()
-    ubicacion_producto=models.CharField(max_length=255)
+    ubicacion_producto=models.CharField(max_length=255,default="Hub Comunal")
+    imagen = models.ImageField()
     
     class Meta:
         verbose_name = 'Producto'
