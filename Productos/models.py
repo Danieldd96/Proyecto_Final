@@ -3,7 +3,7 @@ from tiendas.models import Tienda
 from usuarios.models import Usuario
 # Create your models here.
 class Categoria(models.Model):
-    producto=models.ForeignKey('Productos', on_delete=models.CASCADE, related_name='categorias')
+    producto=models.ForeignKey('Productos', on_delete=models.CASCADE, related_name='categorias',blank=True,null=False)
     tipo=models.CharField(max_length=255)
 
     class Meta:
@@ -21,6 +21,7 @@ class Productos(models.Model):
     ubicacion_producto = models.CharField(max_length=255, default="Hub Comunal")
     cantidad = models.IntegerField()
     imagen = models.ImageField()
+    categoria = models.CharField(max_length=255,default="Bicicletas",null=True,blank=True)
 
     class Meta:
         verbose_name = 'Producto'
