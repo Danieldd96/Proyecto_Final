@@ -9,7 +9,7 @@ async function darDatos(objeto,productsUrl){
         })
         const datos = await respuesta.json()
         console.log(datos)
-        console.log(`Se agregò un usuario`);
+        console.log(`Producto ${objeto.nombre} publicado exitosamente`)
     } catch (error) {
         console.error(error);
     }

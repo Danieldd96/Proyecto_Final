@@ -1,23 +1,21 @@
-async function Get(apiUrl) {
-    
+async function fetchData(apiUrl) {
     try {
-        const response = await fetch(apiUrl)
-        let listarTareas =await response.json()
-        return listarTareas
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return data;
 
     } catch (error) {
-        console.log(error)
+        console.error(`Error al obtener los datos: ${error.message}`);
+        return null; 
     }
 }
-async function GetByUser(apiUrl,userID){
-    try {
-        const response = await fetch(apiUrl+userID)
-        let listarTareas =await response.json()
-        return listarTareas
 
-    } catch (error) {
-        console.log(error)
-    
+async function Get(apiUrl) {
+    return await fetchData(apiUrl);
 }
+
+async function GetByUser(apiUrl, userID) {
+    return await fetchData(apiUrl + userID);
 }
-export {Get,GetByUser}
+
+export { Get, GetByUser };

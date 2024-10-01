@@ -10,6 +10,7 @@ async function actualizarJuego(apiUrl,id,objeto) {///En este metodo cambiaremos 
         })
         let data = await response.json()
         console.log(data)
+        console.log('Datos actualizados exitosamente')
     } catch (error) {
         console.log(error)
     }
