@@ -14,8 +14,7 @@ const Publicar = () => {
     fecha: "",
     ubicacion_producto: "",
     cantidad: "",
-    img: "",
-    categoria: "",
+    imagen: "",
   });
 
   const inputCambio = (e) => {
@@ -33,7 +32,7 @@ const Publicar = () => {
         setImagenPreview(e.target.result)
         setProductData({
           ...productData,
-          img: e.target.result,
+          imagen: e.target.result,
         })
       }
       reader.readAsDataURL(file)
