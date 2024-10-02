@@ -54,7 +54,7 @@ const Register = () => {
         setMensaje("Registro exitoso. Redirigiendo...");
         setMensajeTipo("success");
         setTimeout(() => {
-            navegar('/');
+            navegar('/login');
         }, 2000); 
     };
 
@@ -114,7 +114,7 @@ const Register = () => {
 
                     <div className="register-link">
                         <p>
-                            Ya tienes una cuenta? <Link to="/" className="registerBtn">Login</Link>
+                            Ya tienes una cuenta? <Link to="/login" className="registerBtn">Login</Link>
                         </p>
                     </div>
                     <button type="button" onClick={Guardar} className="btn">Registrar</button>

@@ -1,13 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Get } from "../hooks/Get";
-import { AuthContext } from "../contexts/AuthProvider";
 
 const Login = () => {
   const navegar = useNavigate();
   const [email, setEmail] = useState("");
   const [clave, setClave] = useState("");
-  const { login } = useContext(AuthContext);
   const [datos, setDatos] = useState([]);
   const [mensaje, setMensaje] = useState("");
   const [mensajeTipo, setMensajeTipo] = useState("");
@@ -57,7 +55,6 @@ const Login = () => {
       setMensajeTipo("success");
       setTimeout(() => {
           navegar('/');
-          login();
       }, 2000);
   };
 
