@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { Box, Button, Flex, Grid, Heading, Text, TextField } from '@radix-ui/themes'
+import { Box, Button, Grid, Heading } from '@radix-ui/themes'
 import { darDatos } from '../hooks/Post'
 import ScrollButton from '../components/ScrollButton'
+import Navbar from '../components/Navbar'
+import '../styles/Publicar.css'
 
 const Publicar = () => {
   const categorias = ["Bicicletas", "Ropa", "Nutrición", "Accesorios", "Partes"]
@@ -40,7 +42,7 @@ const Publicar = () => {
   };
 
   const nuevoProducto = async (categoria) => {
-    console.log(productData)
+    console.log(productData);
     const nuevosProductos = {
       ...productData,
       categoria,
@@ -51,43 +53,45 @@ const Publicar = () => {
 
   return (
     <div>
+      <Navbar />
       <Box p="8">
-        <Heading>Publicar Productos</Heading>
-
-        {categorias.map((categoria) => (
-          <Box key={categoria} maxWidth="400px" mt="5" p="4" border="1px solid #eaeaea">
-            <Heading size="4">Publicar {categoria}</Heading>
-            <form>
-              <Grid columns={3} gap="2">
-                <label>Nombre del producto</label>
+        <h1>Productos</h1>
+        <div className="form-container">
+          {categorias.map((categoria) => (
+            <Box key={categoria} className="crystal-box">
+              <h1>{categoria}</h1>
+              <form>
+                <Grid columns={3} gap="2" mt="5">
+                  <label>Nombre del producto</label>
                   <input name="nombre" value={productData.nombre} onChange={inputCambio} required />
 
-                <label>Precio</label>
+                  <label>Precio</label>
                   <input name="precio" value={productData.precio} onChange={inputCambio} type="number" required />
 
-                <label>Descripción</label>
+                  <label>Descripción</label>
                   <input name="descripcion" value={productData.descripcion} onChange={inputCambio} required />
-                  
-                <label>Fecha de Publicación</label>
+
+                  <label>Fecha de Publicación</label>
                   <input name="fecha" value={productData.fecha} onChange={inputCambio} type="date" required />
 
-                <label>Ubicación del producto</label>
+                  <label>Ubicación del producto</label>
                   <input name="ubicacion_producto" value={productData.ubicacion_producto} onChange={inputCambio} required />
 
-                <label>Cantidad</label>
+                  <label>Cantidad</label>
                   <input name="cantidad" value={productData.cantidad} onChange={inputCambio} type="number" required />
 
-                <label>Adjuntar Imagen</label>
-                <input type="file" onChange={convertidorImg} required />
-                {imagenPreview && <img src={imagenPreview} alt="Vista previa" style={{ width: '100px', height: '100px', marginTop: '10px' }} />}
+                  <label>Adjuntar Imagen</label>
+                  <input type="file" onChange={convertidorImg} required />
+                  {imagenPreview && <img src={imagenPreview} alt="Vista previa" className="preview-img" />}
 
-                <Button type="button" onClick={() => nuevoProducto(categoria)}>
-                  Publicar en {categoria}
-                </Button>
-              </Grid>
-            </form>
-          </Box>
-        ))}
+                  <Button type="button" onClick={() => nuevoProducto(categoria)}>
+                    Publicar en {categoria}
+                  </Button>
+                </Grid>
+              </form>
+            </Box>
+          ))}
+        </div>
       </Box>
       <ScrollButton />
     </div>

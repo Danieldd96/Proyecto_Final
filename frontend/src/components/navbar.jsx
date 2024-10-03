@@ -110,7 +110,8 @@ const Navbar = () => {
                             <DropdownMenu.Item>Historial facturas</DropdownMenu.Item>
                             <DropdownMenu.Item>Ajustes</DropdownMenu.Item>
                             <DropdownMenu.Item ><Link to="/publicar">Publicar Producto</Link></DropdownMenu.Item>
-                            <DropdownMenu.Item ><Link to="/info">acerca de</Link></DropdownMenu.Item>
+                            <DropdownMenu.Item ><Link to="/info">Acerca de</Link></DropdownMenu.Item>
+                            <DropdownMenu.Item ><Link to="/contacto">Contacto</Link></DropdownMenu.Item>
                             <DropdownMenu.Separator />
                             <DropdownMenu.Item onClick={cerrarSesion} className="logout-item">
                                 Cerrar sesión

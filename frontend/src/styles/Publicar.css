@@ -1,0 +1,97 @@
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 80px; 
+    padding: 50px;
+}
+
+
+input,
+textarea {
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    outline: none;
+    transition: border-bottom 0.3s ease;
+    width: 100%;
+}
+
+input:focus,
+textarea:focus {
+    border-bottom: 2px solid gray;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7); 
+    opacity: 0.7; 
+    transition: opacity 0.3s ease, color 0.3s ease; 
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    opacity: 0; 
+}
+
+input:hover,
+textarea:hover {
+    border-bottom: 2px solid gray; 
+}
+
+@keyframes placeholder-fade {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+input::placeholder,
+textarea::placeholder {
+    animation: placeholder-fade 0.5s ease-out; 
+}
+
+
+button {
+    color: white;
+    border: 1px solid white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
+}
+
+label {
+    color: white;
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 60px; 
+    border-bottom: 1px solid white;
+    animation: fadeIn 0.5s ease; 
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
