@@ -28,7 +28,7 @@ const Bicicletas = () => {
 
       <ScrollButton />
 
-      <div>
+      <div className="container">
 
         <div className={`sidebar ${filtrosAbiertos ? 'sidebar-open' : ''}`}>
           <h2>BICICLETAS</h2>
@@ -40,21 +40,23 @@ const Bicicletas = () => {
           </div>
         </div>
 
-        <div>
-          <div>
+        <div className="content">
+          <div className="image-row">
 
+            {Tipos.map((imagen, index) => (
+              <img key={index} src={imagen} alt={`Tipo ${index}`} />
+            ))}
+          </div>
+          <div>
+            
+          </div>
+          <h1>Bicicletas</h1>
+          <div className="product-container">
         <button className="filter-button" onClick={() => setFiltrosAbiertos(!filtrosAbiertos)}>
           {filtrosAbiertos ? 'Cerrar Filtros' : 'Abrir Filtros'}
         </button>
-            {Tipos.map((imagen, index) => (
-              <img key={index} src={imagen}/>
-            ))}
-          </div>
-
-          <h1>Bicicletas</h1>
-          <div>
             {productosBicicletas.map((producto, index) => (
-              <div key={index}>
+              <div key={index} className="product-card">
                 <Casillas producto={producto} />
               </div>
             ))}
