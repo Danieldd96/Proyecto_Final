@@ -63,22 +63,22 @@ const Publicar = () => {
               <form>
                 <Grid columns={3} gap="2" mt="5">
                   <label>Nombre del producto</label>
-                  <input name="nombre" value={productData.nombre} onChange={inputCambio} required />
+                  <input name="nombre" value={productData.nombre} placeholder='Ingrese el Nombre del producto' onChange={inputCambio} required />
 
                   <label>Precio</label>
-                  <input name="precio" value={productData.precio} onChange={inputCambio} type="number" required />
+                  <input name="precio" value={productData.precio} placeholder='Ingrese el Precio del producto' onChange={inputCambio} type="number" required />
 
                   <label>Descripción</label>
-                  <input name="descripcion" value={productData.descripcion} onChange={inputCambio} required />
+                  <input name="descripcion" value={productData.descripcion} placeholder='Ingrese la Descripción del producto' onChange={inputCambio} required />
 
                   <label>Fecha de Publicación</label>
-                  <input name="fecha" value={productData.fecha} onChange={inputCambio} type="date" required />
+                  <input name="fecha" value={productData.fecha} placeholder='Ingrese la Fecha de Publicación del producto' onChange={inputCambio} type="date" required />
 
                   <label>Ubicación del producto</label>
-                  <input name="ubicacion_producto" value={productData.ubicacion_producto} onChange={inputCambio} required />
+                  <input name="ubicacion_producto" value={productData.ubicacion_producto} placeholder='Ingrese la Ubicación del producto' onChange={inputCambio} required />
 
                   <label>Cantidad</label>
-                  <input name="cantidad" value={productData.cantidad} onChange={inputCambio} type="number" required />
+                  <input name="cantidad" value={productData.cantidad} placeholder='Ingrese la Cantidad del producto' onChange={inputCambio} type="number" required />
 
                   <label>Adjuntar Imagen</label>
                   <input type="file" onChange={convertidorImg} required />

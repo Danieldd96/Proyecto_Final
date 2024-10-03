@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, DataList, Badge, Box, Heading, Text, Link, Separator } from '@radix-ui/themes';
-import Navbar from '../components/navbar';
+import Navbar from '../components/Navbar'
 
-const Contact = () => {
+const Acerca = () => {
   return (
     <div>
       <Navbar />
@@ -122,4 +122,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default Acerca;

@@ -7,7 +7,8 @@ import '@radix-ui/themes/styles.css';
 import { Theme,ThemePanel } from '@radix-ui/themes';
 import Info from './components/info'
 import '@radix-ui/themes'
-import Contact from './pages/Contact'
+import Acerca from './pages/Acerca'
+import Contacto from './pages/Contacto'
 import Publicar from './pages/Publicar'
 import ProtectedRoute from './utils/ProtectedRoute'
 import {useLocalStorage} from 'react-use'
@@ -23,7 +24,8 @@ const [user, setUser] = useLocalStorage('idUsuario')
       <Route path='/' element={<Home/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/registro' element={<Register/>}></Route>
-      <Route path='/info' element={<Contact/>}></Route>
+      <Route path='/info' element={<Acerca/>}></Route>
+      <Route path='/contacto' element={<Contacto/>}></Route>
       <Route element={<ProtectedRoute canActivate={user} redirectPath='/login' />}>
         <Route path='/publicar' element={<Publicar/>}></Route>
       </Route>
