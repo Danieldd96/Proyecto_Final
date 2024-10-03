@@ -12,6 +12,7 @@ import Contacto from './pages/Contacto'
 import Publicar from './pages/Publicar'
 import ProtectedRoute from './utils/ProtectedRoute'
 import {useLocalStorage} from 'react-use'
+import Bicicletas from './pages/Bicicletas'
 
 
 function App() {
@@ -29,6 +30,7 @@ const [user, setUser] = useLocalStorage('idUsuario')
       <Route element={<ProtectedRoute canActivate={user} redirectPath='/login' />}>
         <Route path='/publicar' element={<Publicar/>}></Route>
       </Route>
+      <Route path='/bicicletas' element={<Bicicletas/>}></Route>
       </Routes>
       </Theme>
       <Info />
