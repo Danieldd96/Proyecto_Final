@@ -55,7 +55,7 @@ const Publicar = () => {
     <div>
       <Navbar />
       <Box p="8">
-        <h1>Productos</h1>
+        <h1 className='title'>Publicar Producto</h1>
         <div className="form-container">
           {categorias.map((categoria) => (
             <Box key={categoria} className="crystal-box">
@@ -63,25 +63,25 @@ const Publicar = () => {
               <form>
                 <Grid columns={3} gap="2" mt="5">
                   <label>Nombre del producto</label>
-                  <input name="nombre" value={productData.nombre} placeholder='Ingrese el Nombre del producto' onChange={inputCambio} required />
+                  <input className='item' name="nombre" value={productData.nombre} placeholder='Ingrese el Nombre del producto' onChange={inputCambio} required />
 
                   <label>Precio</label>
-                  <input name="precio" value={productData.precio} placeholder='Ingrese el Precio del producto' onChange={inputCambio} type="number" required />
+                  <input className='item' name="precio" value={productData.precio} placeholder='Ingrese el Precio del producto' onChange={inputCambio} type="number" required />
 
                   <label>Descripción</label>
-                  <input name="descripcion" value={productData.descripcion} placeholder='Ingrese la Descripción del producto' onChange={inputCambio} required />
+                  <input className='item' name="descripcion" value={productData.descripcion} placeholder='Ingrese la Descripción del producto' onChange={inputCambio} required />
 
                   <label>Fecha de Publicación</label>
-                  <input name="fecha" value={productData.fecha} placeholder='Ingrese la Fecha de Publicación del producto' onChange={inputCambio} type="date" required />
+                  <input className='item' name="fecha" value={productData.fecha} placeholder='Ingrese la Fecha de Publicación del producto' onChange={inputCambio} type="date" required />
 
                   <label>Ubicación del producto</label>
-                  <input name="ubicacion_producto" value={productData.ubicacion_producto} placeholder='Ingrese la Ubicación del producto' onChange={inputCambio} required />
+                  <input className='item' name="ubicacion_producto" value={productData.ubicacion_producto} placeholder='Ingrese la Ubicación del producto' onChange={inputCambio} required />
 
                   <label>Cantidad</label>
-                  <input name="cantidad" value={productData.cantidad} placeholder='Ingrese la Cantidad del producto' onChange={inputCambio} type="number" required />
+                  <input className='item' name="cantidad" value={productData.cantidad} placeholder='Ingrese la Cantidad del producto' onChange={inputCambio} type="number" required />
 
                   <label>Adjuntar Imagen</label>
-                  <input type="file" onChange={convertidorImg} required />
+                  <input className='item' type="file" onChange={convertidorImg} required />
                   {imagenPreview && <img src={imagenPreview} alt="Vista previa" className="preview-img" />}
 
                   <Button type="button" onClick={() => nuevoProducto(categoria)}>

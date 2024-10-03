@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import Carrusel from '../components/carrusel'
 import "../styles/home.css"
 import Casillas from './Casillas'
