@@ -1,6 +1,6 @@
 import React , { useState } from 'react';
 import Navbar from '../components/Navbar';
-import Casillas from './Casillas';
+import Casillas from '../components/Casillas';
 import ScrollButton from '../components/ScrollButton';
 import '../styles/Bicicletas.css';
 

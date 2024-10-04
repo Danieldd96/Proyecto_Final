@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Carrusel from '../components/carrusel'
 import "../styles/home.css"
-import Casillas from './Casillas'
+import Casillas from '../components/Casillas'
 import { Grid,Link } from '@radix-ui/themes'
 import ScrollButton from '../components/ScrollButton'
 
