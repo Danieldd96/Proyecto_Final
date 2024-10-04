@@ -21,12 +21,13 @@ const Bicicletas = () => {
     obtenerProductos();
   }, []);
 
-  const Tipos = [
-    '/src/img/mountain-bike.jpg',
-    '/src/img/road-bike.jpg',
-    'src/img/bicicleta-electrica.jpg',
-    '/src/img/bmx-bike.jpg'
-  ];
+  const Tipos = {
+    Electrica:'src/img/bicicleta-electrica.jpg',
+    Montaña:'src/img/mountain-bike.jpg',
+    Ruta:'src/img/road-bike.jpg',
+    BMX:'src/img/bmx-bike.jpg'
+  }
+
 
   return (
     <div>
@@ -49,18 +50,21 @@ const Bicicletas = () => {
         <div className="content">
           <div className="image-row">
 
-            {Tipos.map((imagen, index) => (
-              <img key={index} src={imagen} alt={`Tipo ${index}`} />
-            ))}
+          {Object.entries(Tipos).map(([tipo, imagen], index) => (
+            <div key={index}>
+              <img src={imagen} alt={`Tipo ${tipo}`} />
+                <h2>{tipo}</h2>
+            </div>
+          ))}
           </div>
           <div>
             
           </div>
-          <h1>Bicicletas</h1>
-          <div className="product-container">
+          <h1 style={{borderBottom:"solid 5px #8b0000",paddingBottom:10,paddingLeft:20}}>Bicicletas</h1>
         <button className="filter-button" onClick={() => setFiltrosAbiertos(!filtrosAbiertos)}>
           {filtrosAbiertos ? 'Cerrar Filtros' : 'Abrir Filtros'}
         </button>
+          <div className="product-container">
             {productos.map((producto, index) => (
               <div key={index} className="product-card">
                 <Casillas producto={producto} />

@@ -20,6 +20,7 @@ class Productos(models.Model):
     ubicacion_producto = models.CharField(max_length=255, default="Hub Comunal")
     cantidad = models.IntegerField()
     imagen = models.TextField()
+    tipo=models.CharField(max_length=255, default="Bicicletas", choices=(('Electrica', 'Electrica'),('Montaña', 'Montaña'),('Ruta', 'Ruta'),('BMX', 'BMX')))
     categoria=models.CharField(max_length=255, default="Bicicletas", choices=(("Bicicletas", "Bicicletas"),("Ropa", "Ropa"),("Nutrición", "Nutrición"),("Accesorios", "Accesorios"),("Partes", "Partes")))
     # tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
 

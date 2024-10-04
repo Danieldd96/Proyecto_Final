@@ -17,6 +17,7 @@ const Publicar = () => {
     ubicacion_producto: "",
     cantidad: "",
     imagen: "",
+    tipo: "",
   });
 
   const inputCambio = (e) => {
@@ -76,6 +77,9 @@ const Publicar = () => {
 
                   <label>Ubicación del producto</label>
                   <input className='item' name="ubicacion_producto" value={productData.ubicacion_producto} placeholder='Ingrese la Ubicación del producto' onChange={inputCambio} required />
+
+                  <label>Tipo</label>
+                  <input className='item' name="tipo" value={productData.tipo} placeholder='Ingrese el tipo del producto' onChange={inputCambio} required />
 
                   <label>Cantidad</label>
                   <input className='item' name="cantidad" value={productData.cantidad} placeholder='Ingrese la Cantidad del producto' onChange={inputCambio} type="number" required />
