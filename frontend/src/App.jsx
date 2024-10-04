@@ -13,6 +13,7 @@ import Publicar from './pages/Publicar'
 import ProtectedRoute from './utils/ProtectedRoute'
 import {useLocalStorage} from 'react-use'
 import Bicicletas from './pages/Bicicletas'
+import Accesorios from './pages/Accesorios'
 
 
 function App() {
@@ -31,6 +32,7 @@ const [user, setUser] = useLocalStorage('idUsuario')
         <Route path='/publicar' element={<Publicar/>}></Route>
       </Route>
       <Route path='/bicicletas' element={<Bicicletas/>}></Route>
+      <Route path='/accesorios' element={<Accesorios/>}></Route>
       </Routes>
       </Theme>
       <Info />

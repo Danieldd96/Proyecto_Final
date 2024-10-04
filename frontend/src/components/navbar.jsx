@@ -59,9 +59,9 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbarIzquierdo">
-                <a href="#" className="nav-link">Accesorios</a>
-                <a href="#" className="nav-link">Servicios</a>
-                <a href="#" className="nav-link">Bicicletas</a>
+                <Link to="/accesorios" className="nav-link">Accesorios</Link>
+                <Link to='/servicios' className="nav-link">Servicios</Link>
+                <Link to='/bicicletas' className="nav-link">Bicicletas</Link>
             </div>
 
             <div className="navbarCentro">
