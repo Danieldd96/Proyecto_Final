@@ -95,3 +95,9 @@ label {
         transform: translateY(0);
     }
 }
+.preview-img{
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}

@@ -1,19 +1,25 @@
-import React , { useState } from 'react';
+import React , { useState,useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Casillas from '../components/Casillas';
 import ScrollButton from '../components/ScrollButton';
 import '../styles/Bicicletas.css';
+import { Get } from '../hooks/Get';
 
 
 const Bicicletas = () => {
   const [filtrosAbiertos, setFiltrosAbiertos] = useState(false); 
 
-  const productosBicicletas = [
-    { nombre: 'Bicicleta Eléctrica', precio: 1500, imagen: 'src/img/bicicleta-electrica.jpg' },
-    { nombre: 'Bicicleta de Montaña', precio: 1200, imagen: '/src/img/mountain-bike.jpg' },
-    { nombre: 'Bicicleta de Ruta', precio: 900, imagen: '/src/img/road-bike.jpg' },
-    { nombre: 'Bicicleta BMX', precio: 800, imagen: '/src/img/bmx-bike.jpg' },
-  ];
+  const [productos, setProductos] = useState([]);
+
+  const obtenerProductos = async () => {
+      const data = await Get('http://127.0.0.1:8000/api/v3/producto/productos/');
+      const productosFiltrados = data.filter(producto => producto.categoria === 'Bicicletas');
+      setProductos(productosFiltrados);
+  };
+  
+  useEffect(() => {
+    obtenerProductos();
+  }, []);
 
   const Tipos = [
     '/src/img/mountain-bike.jpg',
@@ -55,7 +61,7 @@ const Bicicletas = () => {
         <button className="filter-button" onClick={() => setFiltrosAbiertos(!filtrosAbiertos)}>
           {filtrosAbiertos ? 'Cerrar Filtros' : 'Abrir Filtros'}
         </button>
-            {productosBicicletas.map((producto, index) => (
+            {productos.map((producto, index) => (
               <div key={index} className="product-card">
                 <Casillas producto={producto} />
               </div>
