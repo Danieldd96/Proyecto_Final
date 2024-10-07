@@ -27,6 +27,15 @@ function Casillas({ producto }) {
     navegar(`/producto/${producto.nombre}`);
   }
 
+  const agregarAlCarrito = () => {
+    let itemsCarrito = JSON.parse(localStorage.getItem("ids")) || []
+    itemsCarrito.push(producto.id)
+    localStorage.setItem("ids", JSON.stringify(itemsCarrito))
+    localStorage.setItem("usuarioCarrito", localStorage.getItem("idUsuario"))
+    navegar(`/carrito`)
+}
+
+
 
   return (
     <Box maxWidth="240px" className='caja-producto' onMouseEnter={()=>setHover(true)} onMouseLeave={()=> setHover(false)}>
@@ -62,8 +71,8 @@ function Casillas({ producto }) {
       />
       <Text as='p' style={{marginTop:"10px"}}>Precio Total: ₡{precioTotal}</Text>
       <Box>
-        <Button onClick={informacionProducto}>Agregar al carrito</Button>
-        <Button>Agregar al carrito</Button>
+        <Button onClick={informacionProducto}>Mas Información</Button>
+        <Button onClick={agregarAlCarrito}>Agregar al carrito</Button>
       </Box>
     </div>
   </Card>

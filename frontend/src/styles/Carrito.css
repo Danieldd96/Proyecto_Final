@@ -1,0 +1,56 @@
+.car-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.car-header {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #1b1e2b;
+    color: white;
+}
+
+.car-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.car-image {
+    max-width: 150px;
+    border-radius: 8px;
+}
+
+.more-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+}
+
+.car-price {
+    font-size: 20px;
+    color: #00ff00;
+}
+
+.add-to-cart {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #005bb5;
+}
