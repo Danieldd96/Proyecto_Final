@@ -2,11 +2,13 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { Box,Card,Inset,Strong,Text,Button,Heading } from '@radix-ui/themes'
 import '../styles/Casillas.css';
+import { useNavigate } from 'react-router-dom';
 
 function Casillas({ producto }) {
   const [Hover,setHover]=useState(false);
   const [Cantidad, setCantidad] = useState(1);
   const [precioTotal, setPrecioTotal] = useState(producto.precio);
+  const navegar = useNavigate();
 
   const Cantidades = (e) => {
     const nuevaCantidad = parseInt(e.target.value, 6);
@@ -18,6 +20,17 @@ function Casillas({ producto }) {
   useEffect(() => {
     setPrecioTotal(Cantidad * producto.precio);
   }, [Cantidad, producto.precio]);
+
+  const informacionProducto = () => {
+    localStorage.setItem("nombre", producto.nombre);
+    localStorage.setItem("precio", producto.precio);
+    localStorage.setItem("descripcion", producto.descripcion);
+    localStorage.setItem("fecha", producto.fecha);
+    localStorage.setItem("ubicacion_producto", producto.ubicacion_producto);
+    localStorage.setItem("cantidad", Cantidad);
+    localStorage.setItem("imagen", producto.imagen);
+    navegar(`/producto/${producto.nombre}`);
+  }
 
 
   return (
@@ -38,11 +51,12 @@ function Casillas({ producto }) {
       />
     </Inset>
     <Text as="p" size="3">
-      <Strong>{producto.nombre}</Strong> - ${producto.precio}
+      <Strong>{producto.nombre}</Strong> <br />
+      ₡{producto.precio}
     </Text>
     <div className={`producto-modal ${Hover ? 'visible' : ''}`}>
       <Heading>{producto.nombre}</Heading>
-      <Text as='p'>Precio unidad:${producto.precio}</Text>
+      <Text as='p'>Precio unidad:₡{producto.precio}</Text>
       <Text as='p'>Cantidad</Text>
       <input 
       type="number"
@@ -51,8 +65,9 @@ function Casillas({ producto }) {
       min="1"
       max="5"
       />
-      <Text as='p' style={{marginTop:"10px"}}>Precio Total: ${precioTotal}</Text>
+      <Text as='p' style={{marginTop:"10px"}}>Precio Total: ₡{precioTotal}</Text>
       <Box>
+        <Button onClick={informacionProducto}>Agregar al carrito</Button>
         <Button>Agregar al carrito</Button>
       </Box>
     </div>

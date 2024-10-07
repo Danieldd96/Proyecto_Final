@@ -22,10 +22,9 @@ const Accesorios = () => {
     }, []);
   
     const Tipos = {
-      Electrica:'src/img/bicicleta-electrica.jpg',
-      Montaña:'src/img/mountain-bike.jpg',
-      Ruta:'src/img/road-bike.jpg',
-      BMX:'src/img/bmx-bike.jpg'
+      Partes:'src/img/bicicleta-electrica.jpg',
+      Ropa:'src/img/mountain-bike.jpg',
+      Nutricion:'src/img/road-bike.jpg',
     }
   
   return (
@@ -37,7 +36,7 @@ const Accesorios = () => {
         <div className="container">
 
         <div className={`sidebar ${filtrosAbiertos ? 'sidebar-open' : ''}`}>
-            <h2>BICICLETAS</h2>
+            <h2>Productos</h2>
             <div className="scrollable-filters">
             <h2>Filtros</h2>
             <h2>filtro 1</h2>
@@ -59,7 +58,7 @@ const Accesorios = () => {
             <div>
             
             </div>
-            <h1 style={{borderBottom:"solid 5px #8b0000",paddingBottom:10,paddingLeft:20}}>Bicicletas</h1>
+            <h1 style={{borderBottom:"solid 5px #8b0000",paddingBottom:10,paddingLeft:20}}>Productos</h1>
         <button className="filter-button" onClick={() => setFiltrosAbiertos(!filtrosAbiertos)}>
             {filtrosAbiertos ? 'Cerrar Filtros' : 'Abrir Filtros'}
         </button>
