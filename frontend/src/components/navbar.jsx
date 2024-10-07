@@ -83,8 +83,8 @@ const Navbar = () => {
                     )}
                 </div>
 
-                <a href="#" className="cart-icon"><i className='bx bx-cart-alt' ></i></a>
-                <a href="#" className="face"><box-icon  type='logo' name='facebook-circle' color="rgb(55, 55, 203)"></box-icon></a>
+                <Link to="/carrito" className="cart-icon"><i className='bx bx-cart-alt' ></i></Link>
+                <Link className="face"><box-icon  type='logo' name='facebook-circle' color="rgb(55, 55, 203)"></box-icon></Link>
                 <a href="#" className="insta"><box-icon type='logo' name='instagram-alt' color="#fff"></box-icon></a>
                 <a href="#" className="what"><box-icon type='logo' name='whatsapp' color="#00ff00"></box-icon></a>
                 {user ? (

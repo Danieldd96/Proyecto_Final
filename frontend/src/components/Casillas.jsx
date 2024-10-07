@@ -22,13 +22,8 @@ function Casillas({ producto }) {
   }, [Cantidad, producto.precio]);
 
   const informacionProducto = () => {
-    localStorage.setItem("nombre", producto.nombre);
-    localStorage.setItem("precio", producto.precio);
-    localStorage.setItem("descripcion", producto.descripcion);
-    localStorage.setItem("fecha", producto.fecha);
-    localStorage.setItem("ubicacion_producto", producto.ubicacion_producto);
-    localStorage.setItem("cantidad", Cantidad);
-    localStorage.setItem("imagen", producto.imagen);
+    localStorage.setItem("IdInfoProducto", producto.id);
+
     navegar(`/producto/${producto.nombre}`);
   }
 

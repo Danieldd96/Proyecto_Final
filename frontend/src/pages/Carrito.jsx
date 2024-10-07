@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import Casillas from '../components/Casillas';
 import Navbar from '../components/navbar';
 import '../styles/Producto.css';
-import { Get } from '../hooks/Get';
 
-const Producto = () => {
-    const id = localStorage.getItem('IdInfoProducto');
+const Carrito = () => {
+    const nombre = localStorage.getItem("nombre");
+    const precioBase = parseFloat(localStorage.getItem("precio"));
+    const descripcion = localStorage.getItem("descripcion");
+    const imagen = localStorage.getItem("imagen");
     const [cantidad, setCantidad] = useState(1);
-    const [precioBase, setPrecioBase] = useState(0);
     const [precioTotal, setPrecioTotal] = useState(precioBase);
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-    const [imagen, setImagen] = useState("");
-    const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
-    
-    const Obtener = async () => {
-        const data = await Get(apiUrl);
-        console.log(data);
-        setNombre(data.nombre);
-        setDescripcion(data.descripcion);
-        setPrecioBase(data.precio);
-        setImagen(data.imagen);
-    }
-    useEffect(()=>{
-        Obtener();
-    },[]);
 
     useEffect(() => {
         setPrecioTotal(precioBase * cantidad);
@@ -64,21 +48,9 @@ const Producto = () => {
                         </div>
                     </div>
                 </div>
-
-
-                <div className="related-products-container">
-                    <div className="related-products-header">
-                        Productos Relacionados
-                    </div>
-                    <div className="related-products-grid">
-                        <Casillas producto={{nombre:"Producto 1",precio:100,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
-                        <Casillas producto={{nombre:"Producto 2",precio:200,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
-                        <Casillas producto={{nombre:"Producto 3",precio:300,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
-                    </div>
-                </div>
             </div>
         </div>
     );
 };
 
-export default Producto;
+export default Carrito;

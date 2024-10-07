@@ -15,6 +15,7 @@ import {useLocalStorage} from 'react-use'
 import Bicicletas from './pages/Bicicletas'
 import Accesorios from './pages/Accesorios'
 import Producto from './pages/Producto'
+import Carrito from './pages/Carrito'
 
 
 function App() {
@@ -35,6 +36,7 @@ const [user, setUser] = useLocalStorage('idUsuario')
       <Route path='/bicicletas' element={<Bicicletas/>}></Route>
       <Route path='/accesorios' element={<Accesorios/>}></Route>
       <Route path='/producto/:nombre' element={<Producto/>}></Route>
+      <Route path='/carrito' element={<Carrito/>}></Route>
       </Routes>
       </Theme>
       <Info />
