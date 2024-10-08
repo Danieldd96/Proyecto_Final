@@ -1,40 +1,40 @@
 .car-container {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 20px;
+    margin: 50px;
 }
 
 .car-header {
-    display: flex;
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 15px 40px;
+    border-radius: 20px;
     background-color: #1b1e2b;
     color: white;
+}
+
+.car-header h1 {
+    font-size: 40px;
+    letter-spacing: 3px;
 }
 
 .car-details {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin: 10px 0;
 }
 
 .car-image {
-    max-width: 150px;
+    max-width: 220px;
+    max-height: 140px;
     border-radius: 8px;
 }
 
 .more-info {
     flex-grow: 1;
     margin-left: 20px;
-}
-
-.quantity-controls {
-    display: flex;
-    align-items: center;
+    margin-right: 30px;
 }
 
 .car-price {
@@ -42,15 +42,69 @@
     color: #00ff00;
 }
 
-.add-to-cart {
-    background-color: #0066cc;
-    color: white;
-    padding: 10px;
+.quantity-controls button {
     border: none;
-    border-radius: 4px;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid white;
+    margin: 10px 20px;
+    border-radius: 10px;
+}
+
+.delete-product {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-size: 24px;
+    height: 60px;
+}
+.carrito-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.product-list {
+    flex: 3;
+}
+
+.total-container {
+    text-align: right;
+    padding: 20px;
+    color: white;
+    margin:40px;
+}
+
+.total-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.buy-all {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.buy-all:hover {
+    background-color: #218838;
+}
+
+.clear-cart {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 100px;
     cursor: pointer;
 }
 
-.add-to-cart:hover {
-    background-color: #005bb5;
+.clear-cart:hover {
+    background-color: #c82333;
 }

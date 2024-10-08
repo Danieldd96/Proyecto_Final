@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/navbar';
 import '../styles/Carrito.css';
-import { Get, GetByUser } from '../hooks/Get';
+import { GetByUser } from '../hooks/Get';
+import { BiTrash } from 'react-icons/bi';
 
 const Carrito = () => {
     const ids = JSON.parse(localStorage.getItem("ids")) || [];
     const [Datos, setDatos] = useState([]);
-    const [cantidad, setCantidad] = useState(1);
-    const [precioBase, setPrecioBase] = useState(0);
+    const [cantidadPorProducto, setCantidadPorProducto] = useState({});
     const [precioTotal, setPrecioTotal] = useState(0);
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/`;
 
-    
     const Obtener = async () => {
         let productos = []
         for (let index = 0; index < ids.length; index++) {
@@ -19,7 +18,11 @@ const Carrito = () => {
             productos.push(aggProd)
         }        
         setDatos(productos);
-
+        const cantidadesIniciales = productos.reduce((cant, producto) => {
+            cant[producto.id] = 1;
+            return cant;
+        }, {});
+        setCantidadPorProducto(cantidadesIniciales);
     }
 
     useEffect(() => {
@@ -27,48 +30,76 @@ const Carrito = () => {
     }, []);
 
     useEffect(() => {
-        setPrecioTotal(precioBase * cantidad); // Cálculo simple del precio total
-    }, [cantidad, precioBase]);
+        const nuevoTotal = Datos.reduce((total, producto) => {
+            const cantidad = cantidadPorProducto[producto.id] || 1;
+            return total + (producto.precio * cantidad);
+        }, 0);
+        setPrecioTotal(nuevoTotal);
+    }, [Datos, cantidadPorProducto]);
 
-    const incrementarCantidad = () => {
-        setCantidad(prevCantidad => prevCantidad + 1);
+    const incrementarCantidad = (id) => {
+        setCantidadPorProducto(prevCantidades => ({
+            ...prevCantidades,
+            [id]: prevCantidades[id] + 1
+        }));
     };
 
-    const disminuirCantidad = () => {
-        if (cantidad > 1) {
-            setCantidad(prevCantidad => prevCantidad - 1);
-        }
+    const disminuirCantidad = (id) => {
+        setCantidadPorProducto(prevCantidades => ({
+            ...prevCantidades,
+            [id]: prevCantidades[id] > 1 ? prevCantidades[id] - 1 : 1
+        }));
+    };
+
+    const eliminarProducto = (id) => {
+        const nuevosIds = ids.filter(itemId => itemId !== id);
+        localStorage.setItem('ids', JSON.stringify(nuevosIds));
+        setDatos(Datos.filter(producto => producto.id !== id));
+    };
+
+    const limpiarCarrito = () => {
+        localStorage.removeItem('ids');
+        setDatos([]);
     };
 
     return (
         <div>
             <Navbar />
-            {Datos.map((producto, index) => (
-                <div key={index}>
-                    <div className="car-container">
-                        <div className="car-header">
-                            <h1>{producto.nombre}</h1>
-                            <div className="car-details">
-                                <img src={producto.imagen} alt="Vista previa" className="car-image" />
-                                <div className="more-info">
-                                    <h2>MÁS INFORMACIÓN</h2>
-                                    <p>{producto.descripcion}</p>
-                                </div>
-    
-                                <div className="quantity-controls" style={{ justifyContent: "space-between", margin: "10px" }}>
-                                    <p className="car-price">Total: ₡{producto.precio}</p>
-                                    <button onClick={() => disminuirCantidad(index)}>-</button>
-                                    <span>{cantidad}</span>
-                                    <button onClick={() => incrementarCantidad(index)}>+</button>
-                                    <br />
-                                    <button className="add-to-cart">Añadir al carrito</button>
+            <div className="carrito-container">
+                <div className="product-list">
+                    {Datos.map((producto, index) => (
+                        <div key={index}>
+                            <div className="car-container">
+                                <div className="car-header">
+                                    <h1>{producto.nombre}</h1>
+                                    <div className="car-details">
+                                        <img src={producto.imagen} alt="Vista previa" className="car-image" />
+                                        <div className="more-info">
+                                            <h2>Descripcion</h2>
+                                            <p>{producto.descripcion}</p>
+                                        </div>
+                                        <div className="quantity-controls">
+                                            <p className="car-price">Total: ₡{producto.precio * cantidadPorProducto[producto.id]}</p>
+                                            <button onClick={() => disminuirCantidad(producto.id)}>-</button>
+                                            <span>{cantidadPorProducto[producto.id]}</span>
+                                            <button onClick={() => incrementarCantidad(producto.id)}>+</button>
+                                        </div>
+                                        <button className="delete-product" onClick={() => eliminarProducto(producto.id)}>
+                                            <BiTrash />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
-            ))}
-      
+                <div className="total-container">
+                    <h2>Total del carrito: ₡{precioTotal}</h2>
+                    <button className="buy-all">Comprar Todo</button>
+                    <hr />
+                    <button className="clear-cart" onClick={limpiarCarrito}>Limpiar Carrito</button>
+                </div>
+            </div>
         </div>
     );
 };
