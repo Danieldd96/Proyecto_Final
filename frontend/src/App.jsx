@@ -16,7 +16,9 @@ import Bicicletas from './pages/Bicicletas'
 import Accesorios from './pages/Accesorios'
 import Producto from './pages/Producto'
 import Carrito from './pages/Carrito'
-
+import Facturas from './pages/Facturas'
+import MisProductos from './pages/MisProductos'
+import Servicios from './pages/Servicios'
 
 function App() {
 const [user, setUser] = useLocalStorage('idUsuario')
@@ -32,11 +34,14 @@ const [user, setUser] = useLocalStorage('idUsuario')
       <Route path='/contacto' element={<Contacto/>}></Route>
       <Route element={<ProtectedRoute canActivate={user} redirectPath='/login' />}>
         <Route path='/publicar' element={<Publicar/>}></Route>
+        <Route path='/facturas' element={<Facturas/>}></Route>
+        <Route path='/mis-productos' element={<MisProductos/>}></Route>
       </Route>
       <Route path='/bicicletas' element={<Bicicletas/>}></Route>
       <Route path='/accesorios' element={<Accesorios/>}></Route>
       <Route path='/producto/:nombre' element={<Producto/>}></Route>
       <Route path='/carrito' element={<Carrito/>}></Route>
+      <Route path='/servicios' element={<Servicios/>}></Route>
       </Routes>
       </Theme>
       <Info />
