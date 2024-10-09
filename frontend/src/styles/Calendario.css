@@ -1,7 +1,9 @@
 .dark-mode-calendar {
     background-color: #121212;
     color: #ffffff;
-    padding: 20px; 
+    padding: 20px;
+    border: 1px solid #ffffff;
+    margin-bottom: 80px;
   }
   
   .rbc-calendar {
