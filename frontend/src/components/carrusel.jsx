@@ -1,72 +1,97 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import '../styles/carrusel.css';
 
-const diapositivas = [
+const items = [
   {
-    imagenFondo: 'src/img/6b3a2e2a7dcfdb9b38ac71c29bfcc60c.jpg',
-    imagenPequeña: 'src/img/6b3a2e2a7dcfdb9b38ac71c29bfcc60c.jpg',
-    titulo: 'Bicicletas',
-    descripcion: 'Tenemos una gran variedad de bicicletas para todo tipo usuario con muy buenos precios y calidad garantizada .',
-    link: '/bicicletas',
+    img: '/src/img/6b3a2e2a7dcfdb9b38ac71c29bfcc60c.jpg',
+    title: 'Bicicletas',
+    description:
+      'Tenemos un gran catálogo de bicicletas para que puedas encontrar la que más te convenga',
   },
   {
-    imagenFondo: '',
-    imagenPequeña: 'src/img/bicycle-1839005_1920.jpg',
-    titulo: 'Nuestros Servicios',
-    descripcion: '',
-    link: '',
+    img: '/src/img/115062.jpg',
+    title: 'Accesorios',
+    description:
+      'Tenemos una gran cantidad de accesorios para que puedas disfrutar de tus bicicletas',
   },
   {
-    imagenFondo: '',
-    imagenPequeña: '',
-    titulo: '',
-    descripcion: '',
-    link: '', 
+    img: '/src/img/bicicleta-electrica.jpg',
+    title: 'Partes',
+    description:
+      'Tenemos repuestos de todo tipo de bicicletas junto a herramientos para que puedas dar el mejor mantenimiento a tu bicicleta',
+  },
+  {
+    img: '/src/img/mountain-bike.jpg',
+    title: 'Ropa',
+    description:
+      'Nuestro catologo de ropa es muy completo para usuarios casuales y profesionales',
+  },
+  {
+    img: '/src/img/bmx-bike.jpg',
+    title: 'Nutricion',
+    description:
+      'En esta seccion encontraras una gran variedad de suplementos alimenticios',
   },
 ];
 
 const Carrusel = () => {
-    const [indice, setIndice] = useState(0);
-    const [visible, setVisible] = useState(true);
-  
-    const siguiente = () => {
-      setVisible(false);
-      setTimeout(() => {
-        setIndice((prev) => (prev + 1) % diapositivas.length);
-        setVisible(true);
-      }, 500);
-    };
-  
-    const anterior = () => {
-      setVisible(false); 
-      setTimeout(() => {
-        setIndice((prev) => (prev - 1 + diapositivas.length) % diapositivas.length);
-        setVisible(true); 
-      }, 500); 
-    };
-  
-    return (
-      <div className="carrusel" style={{border:"solid 1px",borderColor:"white"}}>
-        <div className={`diapositiva ${visible ? 'visible' : ''}`} style={{ backgroundImage: `url(${diapositivas[indice].imagenFondo})` }}>
-          <div className="contenido">
-            <Link to={diapositivas[indice].link}>
-              <img src={diapositivas[indice].imagenPequeña} alt={diapositivas[indice].titulo} className="imagen-pequeña" />
-            </Link>
-            <div className="textos">
-              <Link to={diapositivas[indice].link}>
-                <h2>{diapositivas[indice].titulo}</h2>
-              </Link>
-              <p>{diapositivas[indice].descripcion}</p>
+  const [itemActive, setItemActive] = useState(0);
+  const countItem = items.length;
+
+  const nextSlide = () => {
+    setItemActive((prev) => (prev + 1) % countItem);
+  };
+
+  const prevSlide = () => {
+    setItemActive((prev) => (prev - 1 + countItem) % countItem);
+  };
+
+  const miniaturas = (index) => {
+    setItemActive(index);
+  };
+
+  useEffect(() => {
+    const autoPlay = setInterval(() => {
+      nextSlide();
+    }, 9000);
+
+    return () => clearInterval(autoPlay); 
+  }, []);
+
+  return (
+    <div className="slider">
+      <div className="list">
+        {items.map((item, index) => (
+          <div key={index} className={`item ${itemActive === index ? 'active' : ''}`}>
+            <img src={item.img} alt={item.title} />
+            <div className="content">
+              <p>Bicicletas LOGO</p>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
             </div>
           </div>
-        </div>
-
-        <button className='btncarrusel' onClick={anterior}>&lt;</button>
-        <button className='btncarrusel' onClick={siguiente}>&gt;</button>
+        ))}
       </div>
-    );
-  };
-  
+
+      <div className="arrows">
+        <button onClick={prevSlide}>&lt;</button>
+        <button onClick={nextSlide}>&gt;</button>
+      </div>
+
+      <div className="thumbnail">
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className={`item ${itemActive === index ? 'active' : ''}`}
+            onClick={() => miniaturas(index)}
+          >
+            <img src={item.img} alt={`Thumbnail of ${item.title}`} />
+            <div className="content">{item.title}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default Carrusel;
