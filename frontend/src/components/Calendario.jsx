@@ -28,7 +28,7 @@ const Calendario = () => {
         localizer={Ajustes}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 800 }}
+        style={{ height: 850  }}
         views={['month', 'week', 'day']}
         defaultView={Views.MONTH}
         messages={{

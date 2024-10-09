@@ -1,8 +1,8 @@
 import React from 'react'
 import Calendario from '../components/Calendario'
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import '../styles/Servicios.css'
-
+import { Link } from 'react-router-dom'
 const Servicios = () => {
   return (
     <div>
@@ -19,7 +19,7 @@ const Servicios = () => {
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <h2>CALENDARIO DE MANTENIMIENTO</h2>
+          <Link to="/calendario" style={{color:'white'}}>CALENDARIO DE MANTENIMIENTO</Link>
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
