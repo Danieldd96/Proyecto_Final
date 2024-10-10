@@ -1,9 +1,10 @@
 import React , { useState,useEffect } from 'react';
-import Navbar from '../components/navbar';
+import Navbar from '../components/Navbar';
 import Casillas from '../components/Casillas';
 import ScrollButton from '../components/ScrollButton';
 import '../styles/Bicicletas.css';
 import { Get } from '../hooks/Get';
+import CasillasHorizontales from '../components/CasillasHorizontales';
 
 
 const Bicicletas = () => {
@@ -67,7 +68,7 @@ const Bicicletas = () => {
           <div className="product-container">
             {productos.map((producto, index) => (
               <div key={index} className="product-card">
-                <Casillas producto={producto} />
+                <CasillasHorizontales producto={producto} />
               </div>
             ))}
           </div>
