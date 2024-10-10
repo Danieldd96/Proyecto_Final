@@ -1,0 +1,31 @@
+.filtros {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 80px;
+}
+  
+.filtros select {
+    padding: 5px;
+    font-size: 16px;
+}
+  
+.productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 80px;
+}
+  
+.producto-card {
+    border: 1px solid #ccc;
+    padding: 60px 50px;
+    border-radius: 8px;
+    text-align: center;
+    
+}
+  
+.producto-card img {
+    max-width: 60%;
+    height: 60%;
+    border-radius: 8px;
+}
+  
