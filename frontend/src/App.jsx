@@ -20,6 +20,7 @@ import Facturas from './pages/Facturas'
 import MisProductos from './pages/MisProductos'
 import Servicios from './pages/Servicios'
 import CalendMante from './pages/CalendMante'
+import Tutoriales from './pages/Tutoriales'
 
 function App() {
 const [user, setUser] = useLocalStorage('idUsuario')
@@ -44,6 +45,7 @@ const [user, setUser] = useLocalStorage('idUsuario')
       <Route path='/producto/:nombre' element={<Producto/>}></Route>
       <Route path='/carrito' element={<Carrito/>}></Route>
       <Route path='/servicios' element={<Servicios/>}></Route>
+      <Route path='/tutoriales' element={<Tutoriales/>}></Route>
       </Routes>
       </Theme>
       <Info />

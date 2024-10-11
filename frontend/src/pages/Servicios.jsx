@@ -15,15 +15,15 @@ const Servicios = () => {
       <div className='containerService'>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <h2>TUTORIALES DE MANTENIMIENTO</h2>
+          <Link to="/tutoriales" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>TUTORIALES DE MANTENIMIENTO</Link>
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <Link to="/calendario" style={{color:'white'}}>CALENDARIO DE MANTENIMIENTO</Link>
+          <Link to="/calendario" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>CALENDARIO DE MANTENIMIENTO</Link>
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <h2>TALLER</h2>
+          <Link to="/tutoriales" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>TALLER</Link>
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
