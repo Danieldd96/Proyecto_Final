@@ -1,38 +1,62 @@
-import React from 'react'
-// import '../styles/Talleres.css'
-import Navbar from '../components/Navbar'
-import Carrusel from '../components/carrusel';
+import React from 'react';
+import Navbar from '../components/Navbar';
+import '../styles/Talleres.css'; 
+
+const servicios = [
+  {
+    icono: '/src/img/firefly.gif', 
+    titulo: 'Mantenimiento de Bicicletas Eléctricas',
+    descripcion: 'Revisión y reparación de motor, batería, y componentes eléctricos.',
+    enlace: '/servicio-mantenimiento-bicicletas-electricas'
+  },
+  {
+    icono: '/src/img/firefly.gif',
+    titulo: 'Ajuste y Reparación de Bicicletas de Ruta',
+    descripcion: 'Ajuste de cambios, reparación de ruedas y frenos, revisión de transmisión.',
+    enlace: '/servicio-ajuste-bicicletas-ruta'
+  },
+  {
+    icono: '/src/img/firefly.gif', 
+    titulo: 'Servicio de Bicicletas BMX',
+    descripcion: 'Ajuste de frenos, revisión de ruedas y cuadros, reemplazo de piezas desgastadas.',
+    enlace: '/servicio-reparacion-bicicletas-bmx'
+  },
+  {
+    icono: '/src/img/firefly.gif',
+    titulo: 'Mantenimiento de Bicicletas de Montaña',
+    descripcion: 'Servicio de suspensión, ajuste de cambios, y mantenimiento de frenos de disco.',
+    enlace: '/servicio-mantenimiento-bicicletas-montana'
+  }
+];
 
 const Talleres = () => {
-    const FILTROS_CATEGORIAS = ['Montaña', 'Ruta', 'BMX', 'Bicicleta Eléctrica'];
-
   return (
     <div>
-        <Navbar />
-      <div>
-        <div>
-            <div>
-                <Carrusel />
-            </div>
-        <h1>Talleres</h1>
-        <div className="filtrosTalleres">
-          <label htmlFor="categorias" className="label-categoria-talleres">Categoría:</label>
-          <select id="categorias" className="select-categoria-talleres">
-            <option value="">Todas</option>
-            {FILTROS_CATEGORIAS.map((categoria) => (
-              <option key={categoria} value={categoria}>
-                {categoria}
-              </option>
-            ))}
-          </select>
-        </div>
-            <div>
+      <Navbar />
+      <div className='title-section'>
+        <h2>Nuestros Servicios</h2>
 
+      </div>
+      <div className="section section-services">
+        <div className="services-grid">
+          {servicios.map((servicio, index) => (
+            <div key={index} className="service-card">
+              <div className="service-front">
+                <img src={servicio.icono} alt={servicio.titulo} className="service-icon" />
+                <h3>{servicio.titulo}</h3>
+              </div>
+              <div className="service-back">
+                <p>{servicio.descripcion}</p>
+                <a href={servicio.enlace} className="btn-red">
+                  Ver Servicio
+                </a>
+              </div>
             </div>
+          ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Talleres
+export default Talleres;
