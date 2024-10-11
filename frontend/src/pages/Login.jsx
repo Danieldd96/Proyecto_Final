@@ -53,9 +53,11 @@ const Login = () => {
       localStorage.setItem("usuario", user.user);
       setMensaje("Inicio de sesión exitoso.");
       setMensajeTipo("success");
+      requestAnimationFrame(() => {
       setTimeout(() => {
           navegar('/');
       }, 2000);
+      });
   };
 
   return (

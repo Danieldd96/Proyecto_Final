@@ -46,19 +46,23 @@ const Carrito = () => {
         setPrecioTotal(nuevoTotal);
     }, [Datos, cantidadPorProducto]);
 
-    const incrementarCantidad = (id) => {
+const incrementarCantidad = (id) => {
+    requestAnimationFrame(() => {
         setCantidadPorProducto(prevCantidades => ({
             ...prevCantidades,
             [id]: prevCantidades[id] + 1
         }));
-    };
+    });
+};
 
-    const disminuirCantidad = (id) => {
+const disminuirCantidad = (id) => {
+    requestAnimationFrame(() => {
         setCantidadPorProducto(prevCantidades => ({
             ...prevCantidades,
             [id]: prevCantidades[id] > 1 ? prevCantidades[id] - 1 : 1
         }));
-    };
+    });
+};
 
     const eliminarProducto = (id) => {
         const nuevosIds = ids.filter(itemId => itemId !== id);
@@ -81,10 +85,11 @@ const Carrito = () => {
         
         localStorage.setItem('compraExitosa', JSON.stringify(compraData));
         limpiarCarrito();
-
+        requestAnimationFrame(() => {
         setTimeout(() => {
             navigate('/mis-productos');
         }, 2000);
+        });
     };
 
     return (

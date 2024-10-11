@@ -53,9 +53,11 @@ const Register = () => {
         await darDatos(usuarios, apiUrl);
         setMensaje("Registro exitoso. Redirigiendo...");
         setMensajeTipo("success");
+        requestAnimationFrame(() => {
         setTimeout(() => {
             navegar('/login');
         }, 2000); 
+        });
     };
 
     return (
