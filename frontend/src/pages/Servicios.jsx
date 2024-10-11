@@ -23,7 +23,7 @@ const Servicios = () => {
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <Link to="/tutoriales" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>TALLER</Link>
+          <Link to="/talleres" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>TALLER</Link>
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
