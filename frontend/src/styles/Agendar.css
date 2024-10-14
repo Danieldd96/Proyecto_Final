@@ -1,0 +1,15 @@
+.agendar-form input,
+.agendar-form select,
+.agendar-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+
+  

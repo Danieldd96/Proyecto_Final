@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Casillas from '../components/Casillas';
-import Navbar from '../components/navbar';
+import Navbar from '../components/Navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
 
