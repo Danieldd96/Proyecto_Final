@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../styles/Talleres.css'; 
 
@@ -30,13 +31,34 @@ const servicios = [
 ];
 
 const Talleres = () => {
+  const [animateBanner, setAnimateBanner] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setAnimateBanner(true);
+  }, []);
+
+  const redireccionar = () => {
+    navigate('/agendar');
+  };
+
   return (
     <div>
       <Navbar />
+      <div className={`banner ${animateBanner ? 'animate' : ''}`}>
+        <div className="banner-text">
+          <h1>EXPERTOS EN BICICLETAS</h1>
+          <p>Aqui tenemos lo mejor para tu bicicleta, siempre disponible.</p>
+          <button className="btn-primary" onClick={redireccionar}>
+            AGENDA TU CITA
+          </button>
+        </div>
+        <img src="/src/img/road-bike.jpg" alt="Agendar" className="banner-image" />
+      </div>
       <div className='title-section'>
         <h2>Nuestros Servicios</h2>
-
       </div>
+
       <div className="section section-services">
         <div className="services-grid">
           {servicios.map((servicio, index) => (
