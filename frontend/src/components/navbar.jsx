@@ -2,13 +2,15 @@ import React, { useState,useEffect } from 'react';
 import '../styles/navbar.css';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { traerCookie,crearCookie } from '../hooks/Cookies';
 
 const Navbar = () => {
     const [consulta, setConsulta] = useState('');
     const [mostrarbusqueda, setmostrarbusqueda] = useState(false); // Estado para mostrar y ocultar input de búsqueda
     const [placeholder, setPlaceholder] = useState(0);
     const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
 
 
@@ -44,16 +46,18 @@ const Navbar = () => {
     }, []);
 
     useEffect(() => {
-        const idUsuario = localStorage.getItem('idUsuario');
-        const email = localStorage.getItem('email');
+        const idUsuario = traerCookie('idUsuario');
+        const email = traerCookie('email');
         if (idUsuario && email) {
             setUser({ idUsuario, email });
         }
     }, []);
 
     const cerrarSesion = () => {
-        localStorage.clear();
-        window.location.reload();
+        crearCookie('idUsuario', '', 7);
+        crearCookie('email', '', 7);
+        crearCookie('usuario', '', 7);
+        window.location.reload()
     };
 
     return (

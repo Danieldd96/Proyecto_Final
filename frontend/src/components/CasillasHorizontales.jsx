@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Card, Inset, Strong, Text, Button, Heading } from '@radix-ui/themes';
 import '../styles/CasillasHorizontales.css';
 import { useNavigate } from 'react-router-dom';
+import {crearCookie, traerCookie} from '../hooks/Cookies'
 
 function CasillasHorizontales({ producto }) {
   const [hover, setHover] = useState(false);
@@ -21,15 +22,15 @@ function CasillasHorizontales({ producto }) {
   }, [cantidad, producto.precio]);
 
   const informacionProducto = () => {
-    localStorage.setItem("IdInfoProducto", producto.id);
+    crearCookie("IdInfoProducto", producto.id);
     navegar(`/producto/${producto.nombre}`);
   };
 
   const agregarAlCarrito = () => {
-    let itemsCarrito = JSON.parse(localStorage.getItem("ids")) || [];
+    let itemsCarrito = JSON.parse(traerCookie("ids")) || [];
     itemsCarrito.push(producto.id);
-    localStorage.setItem("ids", JSON.stringify(itemsCarrito));
-    localStorage.setItem("usuarioCarrito", localStorage.getItem("idUsuario"));
+    crearCookie("ids", JSON.stringify(itemsCarrito));
+    crearCookie("usuarioCarrito", traerCookie("idUsuario"));
     navegar(`/carrito`);
   };
 

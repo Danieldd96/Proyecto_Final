@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Get } from "../hooks/Get";
-
+import { crearCookie } from "../hooks/Cookies";
 const Login = () => {
   const navegar = useNavigate();
   const [email, setEmail] = useState("");
@@ -48,15 +48,17 @@ const Login = () => {
           setMensajeTipo("error");
           return;
       }
-      localStorage.setItem("email", user.mail_user);
-      localStorage.setItem("idUsuario", user.id);
-      localStorage.setItem("usuario", user.user);
+      crearCookie("email", user.mail_user, 7); 
+      crearCookie("idUsuario", user.id, 7);
+      crearCookie("usuario", user.user, 7);
+
       setMensaje("Inicio de sesión exitoso.");
       setMensajeTipo("success");
+
       requestAnimationFrame(() => {
-      setTimeout(() => {
+        setTimeout(() => {
           navegar('/');
-      }, 2000);
+        }, 2000);
       });
   };
 

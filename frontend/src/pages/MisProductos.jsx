@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import ScrollButton from '../components/ScrollButton';
 import { Get } from '../hooks/Get';
 import '../styles/MisProductos.css';
+import { traerCookie } from '../hooks/Cookies';
 
 const FILTROS_CATEGORIAS = ['Ropa', 'Piezas', 'Accesorios', 'Nutrición', 'Bicicletas'];
 
@@ -11,7 +12,7 @@ const MisProductos = () => {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
 
-  const compraExitosa = JSON.parse(localStorage.getItem('compraExitosa') || '{}');
+  const compraExitosa = JSON.parse(traerCookie('compraExitosa') || '{}');
 
   const obtenerProductos = async () => {
     try {

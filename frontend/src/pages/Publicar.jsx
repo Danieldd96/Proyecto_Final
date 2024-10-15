@@ -4,6 +4,7 @@ import { darDatos } from '../hooks/Post'
 import ScrollButton from '../components/ScrollButton'
 import Navbar from '../components/Navbar'
 import '../styles/Publicar.css'
+import { traerCookie } from '../hooks/Cookies'
 
 const Publicar = () => {
   const categorias = ["Bicicletas", "Ropa", "Nutrición", "Accesorios", "Partes"]
@@ -47,7 +48,7 @@ const Publicar = () => {
     const nuevosProductos = {
       ...productData,
       categoria,
-      userID: localStorage.getItem("idUsuario"),
+      userID:traerCookie("idUsuario"),
     }
     await darDatos(nuevosProductos,productsUrl)
   }

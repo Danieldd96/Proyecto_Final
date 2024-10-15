@@ -7,32 +7,28 @@ import { BiTrash } from 'react-icons/bi';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import FormularioPago from '../components/FormularioPago';
+import { traerCookie,crearCookie } from '../hooks/Cookies';
 // Carga la clave pública de Stripe
 const stripePromise = loadStripe('pk_test_51Q7jepP8ALRaQMZcJ5FvztYBTtsOlLmIBZGV8tk7r9eEmPDAl83whOHJipMzeT6b7oGOxJ5R6Apt2Rjx3gFiOahP00OjoiEWl0');
 
 const Carrito = () => {
-    const ids = JSON.parse(localStorage.getItem("ids")) || [];
+    const ids = JSON.parse(traerCookie("ids")) || [];
     const [Datos, setDatos] = useState([]);
     const [cantidadPorProducto, setCantidadPorProducto] = useState({});
     const [precioTotal, setPrecioTotal] = useState(0);
     const [isCheckout, setIsCheckout] = useState(false);
     const navigate = useNavigate();
-
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/`;
 
     const Obtener = async () => {
-        let productos = []
-        for (let index = 0; index < ids.length; index++) {
-            const aggProd = await GetByUser(apiUrl,ids[index])
-            productos.push(aggProd)
-        }
+        const productos = await Promise.all(ids.map(id => GetByUser(apiUrl, id)));
         setDatos(productos);
         const cantidadesIniciales = productos.reduce((cant, producto) => {
             cant[producto.id] = 1;
             return cant;
         }, {});
         setCantidadPorProducto(cantidadesIniciales);
-    }
+    };
 
     useEffect(() => {
         Obtener();
@@ -46,33 +42,34 @@ const Carrito = () => {
         setPrecioTotal(nuevoTotal);
     }, [Datos, cantidadPorProducto]);
 
-const incrementarCantidad = (id) => {
-    requestAnimationFrame(() => {
+    const incrementarCantidad = (id) => {
         setCantidadPorProducto(prevCantidades => ({
             ...prevCantidades,
-            [id]: prevCantidades[id] + 1
+            [id]: (prevCantidades[id] || 1) + 1
         }));
-    });
-};
+    };
 
-const disminuirCantidad = (id) => {
-    requestAnimationFrame(() => {
+    const disminuirCantidad = (id) => {
         setCantidadPorProducto(prevCantidades => ({
             ...prevCantidades,
-            [id]: prevCantidades[id] > 1 ? prevCantidades[id] - 1 : 1
+            [id]: Math.max((prevCantidades[id] || 1) - 1, 1)
         }));
-    });
-};
+    };
 
     const eliminarProducto = (id) => {
         const nuevosIds = ids.filter(itemId => itemId !== id);
-        localStorage.setItem('ids', JSON.stringify(nuevosIds));
+        crearCookie('ids', JSON.stringify(nuevosIds), 7); 
         setDatos(Datos.filter(producto => producto.id !== id));
+        setCantidadPorProducto(prevCantidades => {
+            const { [id]: _, ...rest } = prevCantidades;
+            return rest;
+        });
     };
 
     const limpiarCarrito = () => {
-        localStorage.removeItem('ids');
+        crearCookie('ids', JSON.stringify([]), 7);
         setDatos([]);
+        setCantidadPorProducto({});
     };
 
     const iniciarCheckout = () => {
@@ -80,18 +77,15 @@ const disminuirCantidad = (id) => {
     };
 
     const handlePaymentSuccess = () => {
-        const usuarioId = localStorage.getItem("idUsuario");
+        const usuarioId = traerCookie("idUsuario");
         const compraData = { productos: ids, usuario: usuarioId };
         
-        localStorage.setItem('compraExitosa', JSON.stringify(compraData));
+        crearCookie('compraExitosa', JSON.stringify(compraData), 7);
         limpiarCarrito();
-        requestAnimationFrame(() => {
         setTimeout(() => {
             navigate('/mis-productos');
         }, 2000);
-        });
     };
-
     return (
         <div>
             <Navbar />

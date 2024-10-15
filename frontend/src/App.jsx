@@ -23,9 +23,11 @@ import CalendMante from './pages/CalendMante'
 import Tutoriales from './pages/Tutoriales'
 import Talleres from './pages/Talleres'
 import Agendar from './pages/Agendar'
+import { traerCookie } from './hooks/Cookies'
+
 
 function App() {
-const [user, setUser] = useLocalStorage('idUsuario')
+const user = traerCookie("idUsuario")
   return (
     <>
     <Router>

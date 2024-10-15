@@ -3,9 +3,10 @@ import Casillas from '../components/Casillas';
 import Navbar from '../components/Navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
+import { traerCookie } from '../hooks/Cookies';
 
 const Producto = () => {
-    const id = localStorage.getItem('IdInfoProducto');
+    const id = traerCookie('IdInfoProducto');
     const [cantidad, setCantidad] = useState(1);
     const [precioBase, setPrecioBase] = useState(0);
     const [precioTotal, setPrecioTotal] = useState(precioBase);
