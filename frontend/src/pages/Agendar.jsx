@@ -10,7 +10,15 @@ const Agendar = () => {
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
   const [direccion, setDireccion] = useState('');
+  const [tipoBicicleta, setTipoBicicleta] = useState('');
+  const [mantenimiento, setMantenimiento] = useState('');
 
+  const mantenimientosPorBicicleta = {
+    montana: ['Cambio de llantas', 'Ajuste de suspensión', 'Limpieza completa'],
+    ruta: ['Ajuste de frenos', 'Cambio de cadena', 'Limpieza de transmisión'],
+    bmx: ['Ajuste de frenos', 'Cambio de llantas', 'Revisión general'],
+    electrica: ['Revisión de batería', 'Ajuste de frenos eléctricos', 'Revisión de motor'],
+  };
 
   return (
     <div>
@@ -33,7 +41,11 @@ const Agendar = () => {
 
           <label>
             Tipo de bicicleta 
-            <select>
+            <select 
+              value={tipoBicicleta} 
+              onChange={(e) => setTipoBicicleta(e.target.value)} 
+              required
+            >
               <option value="">Seleccione el tipo de bicicleta</option>
               <option value="montana">Montaña</option>
               <option value="ruta">Ruta</option>
@@ -43,8 +55,17 @@ const Agendar = () => {
           </label>
 
           <label>
-            Tipo de mantenimiento 
-            <select>
+            Tipo de mantenimiento
+            <select 
+              value={mantenimiento} 
+              onChange={(e) => setMantenimiento(e.target.value)} 
+              disabled={!tipoBicicleta}
+              required
+            >
+              <option value="">Seleccione un mantenimiento</option>
+              {tipoBicicleta && mantenimientosPorBicicleta[tipoBicicleta].map((mantenimiento, index) => (
+                <option key={index} value={mantenimiento}>{mantenimiento}</option>
+              ))}
             </select>
           </label>
 
