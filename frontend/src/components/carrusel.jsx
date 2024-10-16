@@ -66,7 +66,7 @@ const Carrusel = () => {
             <img src={item.img} alt={item.title} />
             <div className="content">
               <p>Bicicletas LOGO</p>
-              <h2>{item.title}</h2>
+              <h2 style={{textWrap:'nowrap'}} >{item.title}</h2>
               <p>{item.description}</p>
             </div>
           </div>
