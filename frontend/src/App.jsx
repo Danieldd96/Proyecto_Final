@@ -48,7 +48,7 @@ const user = traerCookie("idUsuario")
       </Route>
       <Route path='/bicicletas' element={<Bicicletas/>}></Route>
       <Route path='/accesorios' element={<Accesorios/>}></Route>
-      <Route path='/producto/:nombre' element={<Producto/>}></Route>
+      <Route path='/producto' element={<Producto/>}></Route>
       <Route path='/carrito' element={<Carrito/>}></Route>
       <Route path='/servicios' element={<Servicios/>}></Route>
       <Route path='/tutoriales' element={<Tutoriales/>}></Route>

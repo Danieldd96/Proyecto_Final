@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import { Box,Card,Inset,Strong,Text,Button,Heading } from '@radix-ui/themes'
 import '../styles/Casillas.css';
 import { useNavigate } from 'react-router-dom';
+import { traerCookie,crearCookie } from '../hooks/Cookies';
 
 function Casillas({ producto }) {
   const [Hover,setHover]=useState(false);
@@ -22,16 +23,16 @@ function Casillas({ producto }) {
   }, [Cantidad, producto.precio]);
 
   const informacionProducto = () => {
-    localStorage.setItem("IdInfoProducto", producto.id);
+    crearCookie("IdInfoProducto", producto.id);
 
-    navegar(`/producto/${producto.nombre}`);
+    navegar("/producto");
   }
 
   const agregarAlCarrito = () => {
-    let itemsCarrito = JSON.parse(localStorage.getItem("ids")) || []
+    let itemsCarrito = JSON.parse(traerCookie("ids")) || []
     itemsCarrito.push(producto.id)
-    localStorage.setItem("ids", JSON.stringify(itemsCarrito))
-    localStorage.setItem("usuarioCarrito", localStorage.getItem("idUsuario"))
+    crearCookie("ids", JSON.stringify(itemsCarrito))
+    crearCookie("usuarioCarrito", traerCookie("idUsuario"))
     navegar(`/carrito`)
 }
 

@@ -28,6 +28,10 @@ const Producto = () => {
     },[]);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         setPrecioTotal(precioBase * cantidad);
     }, [cantidad, precioBase]);
 
@@ -65,7 +69,6 @@ const Producto = () => {
                         </div>
                     </div>
                 </div>
-
 
                 <div className="related-products-container">
                     <div className="related-products-header">

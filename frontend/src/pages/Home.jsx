@@ -28,6 +28,10 @@ function Home() {
   useEffect(() => {
     obtenerProductos();
   }, []); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
+
 
   return (
     <div style={{border:"solid 1px",borderColor:"white"}}>
