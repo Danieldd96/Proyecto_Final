@@ -1,0 +1,25 @@
+
+  .accordion-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .accordion-trigger:hover {
+    background-color: gray;
+    color: #fff;
+  }
+  
+  .accordion-trigger::after {
+    content: '⯈'; 
+    font-size: 16px;
+    color: #fff;
+    transition: transform 0.3s ease;
+    margin-left: auto; 
+    border: none;
+  }
+  
+  .accordion-trigger[aria-expanded="true"]::after {
+    transform: rotate(90deg);
+  }

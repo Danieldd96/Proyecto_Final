@@ -27,7 +27,7 @@ const Servicios = () => {
         </div>
         <div className="containerImg">
           <img src="src/img/marzo.png" alt="" />
-          <h2>CENTRO DE AYUDA</h2>
+          <Link to="/preguntas" style={{color:'white',textDecoration:'none',fontSize:"25px"}}>PREGUNTAS FRECUENTES</Link>
         </div>
       </div>
       </div>

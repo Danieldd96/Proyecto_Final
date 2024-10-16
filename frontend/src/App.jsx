@@ -24,6 +24,7 @@ import Tutoriales from './pages/Tutoriales'
 import Talleres from './pages/Talleres'
 import Agendar from './pages/Agendar'
 import { traerCookie } from './hooks/Cookies'
+import Preguntas from './pages/Preguntas'
 
 
 function App() {
@@ -52,6 +53,7 @@ const user = traerCookie("idUsuario")
       <Route path='/servicios' element={<Servicios/>}></Route>
       <Route path='/tutoriales' element={<Tutoriales/>}></Route>
       <Route path='/talleres' element={<Talleres/>}></Route>
+      <Route path='/preguntas' element={<Preguntas/>}></Route>
       </Routes>
       </Theme>
       <Info />
