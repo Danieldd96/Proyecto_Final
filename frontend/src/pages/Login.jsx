@@ -63,7 +63,7 @@ const Login = () => {
   };
 
   return (
-      <div className="overlay">
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <div className="wrapper" id="menu2">
               <div className="login">
                   <form>
@@ -94,6 +94,7 @@ const Login = () => {
                   </form>
               </div>
           </div>
+        <img src="/src/img/115062.jpg" alt="Background" style={{position:'absolute',top:0,right:0,width:'65%',height:'100%',backgroundColor:'#16191C',zIndex:1,objectFit:'cover'}}/>
       </div>
     );
 }

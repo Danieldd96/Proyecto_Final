@@ -19,19 +19,33 @@ const Register = () => {
     }, []);
 
     async function obtener() {
-        const data = await Get(apiUrl);
-        setDatos(data);
+        try {
+            const data = await Get(apiUrl);
+            
+            // Verificar si 'data' es un array, si no lo es, convertirlo a un array vacío
+            if (Array.isArray(data)) {
+                setDatos(data);
+            } else {
+                console.error("La respuesta no es un array:", data);
+                setDatos([]); // Asegurar que datos siempre sea un array
+            }
+        } catch (error) {
+            console.error("Error obteniendo datos:", error);
+            setDatos([]); // Asegurarse de que 'datos' no sea undefined si hay un error
+        }
     }
 
     const Guardar = async () => {
-        setMensaje("")
+        setMensaje("");
+        
         if (!aceptarTerminos) {
             setMensaje("Debes aceptar los términos y condiciones.");
             setMensajeTipo("error");
             return;
         }
 
-        const userExist = datos.find((acUser) => acUser.mail_user === email);
+        // Asegurarse que 'datos' es un array antes de usar '.find'
+        const userExist = Array.isArray(datos) ? datos.find((acUser) => acUser.mail_user === email) : null;
         if (userExist) {
             setMensaje("Email ya registrado");
             setMensajeTipo("error");
@@ -54,14 +68,14 @@ const Register = () => {
         setMensaje("Registro exitoso. Redirigiendo...");
         setMensajeTipo("success");
         requestAnimationFrame(() => {
-        setTimeout(() => {
-            navegar('/login');
-        }, 2000); 
+            setTimeout(() => {
+                navegar('/login');
+            }, 2000); 
         });
     };
 
     return (
-        <div className="register">
+        <div className="register" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
             <div className="wrapper">
                 <form id="registerForm">
                     <h1>Registro</h1>
@@ -122,6 +136,8 @@ const Register = () => {
                     <button type="button" onClick={Guardar} className="btn">Registrar</button>
                 </form>
             </div>
+            <img src="/src/img/bicycle-1839005_1920.jpg" alt="Background" style={{position:'absolute',top:0,right:605,width:'180%',height:'100%',backgroundColor:'#16191C',zIndex:1,objectFit:'cover'}}/>
+
         </div>
     );
 }
