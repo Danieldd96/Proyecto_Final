@@ -1,65 +1,49 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Get } from "../hooks/Get";
 import { crearCookie } from "../hooks/Cookies";
 const Login = () => {
   const navegar = useNavigate();
   const [email, setEmail] = useState("");
   const [clave, setClave] = useState("");
-  const [datos, setDatos] = useState([]);
   const [mensaje, setMensaje] = useState("");
   const [mensajeTipo, setMensajeTipo] = useState("");
-  const apiUrl = "http://127.0.0.1:8000/api/v2/user/usuarios/";
-
-  useEffect(() => {
-    obtener();
-  }, []);
-
-  async function obtener() {
-      const data = await Get(apiUrl);
-      setDatos(data);
-  }
 
   const Guardar = async () => {
-      setMensaje("");
+    setMensaje("");
 
-      if (email.trim() === "" || clave.trim() === "") {
-          setMensaje("Por favor, completa todos los campos.");
-          setMensajeTipo("error");
-          return;
-      }
+    if (email.trim() === "" || clave.trim() === "") {
+        setMensaje("Por favor, completa todos los campos.");
+        setMensajeTipo("error");
+        return;
+    }
 
-      if (email === clave) {
-          setMensaje("El correo y la contraseña no pueden ser iguales.");
-          setMensajeTipo("error");
-          return;
-      }
+        const response = await fetch("http://127.0.0.1:8000/api/v2/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email: email,  
+                password: clave,  
+            }),
+        });
 
-      const user = datos.find((user) => user.mail_user === email);
+        if (response.ok) {
+            const data = await response.json();
+            crearCookie("token", data.access_token, 7);
+            crearCookie("refresh", data.refresh_token, 7);
+            crearCookie("email", data.email, 7); 
+            crearCookie("idUsuario", data.id, 7);
 
-      if (!user) {
-          setMensaje("Usuario no encontrado.");
-          setMensajeTipo("error");
-          return;
-      }
+            setMensaje("Inicio de sesión exitoso.");
+            setMensajeTipo("success");
 
-      if (user.contrasena !== clave) {
-          setMensaje("Contraseña incorrecta.");
-          setMensajeTipo("error");
-          return;
-      }
-      crearCookie("email", user.mail_user, 7); 
-      crearCookie("idUsuario", user.id, 7);
-      crearCookie("usuario", user.user, 7);
-
-      setMensaje("Inicio de sesión exitoso.");
-      setMensajeTipo("success");
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          navegar('/');
-        }, 2000);
-      });
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    navegar('/');
+                }, 2000);
+            });
+        }
   };
 
   return (
