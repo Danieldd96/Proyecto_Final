@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Casillas from '../components/Casillas';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
 import { traerCookie } from '../hooks/Cookies';
