@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, Inset, Strong, Text, Button, Heading } from '@radix-ui/themes';
+import { Box, Button, Heading, Text } from '@radix-ui/themes'
 import '../styles/CasillasHorizontales.css';
 import { useNavigate } from 'react-router-dom';
 import {crearCookie, traerCookie} from '../hooks/Cookies'
 
 function CasillasHorizontales({ producto }) {
-  const [hover, setHover] = useState(false);
   const [cantidad, setCantidad] = useState(1);
   const [precioTotal, setPrecioTotal] = useState(producto.precio);
-  const navegar = useNavigate();
+  const navigate = useNavigate();
 
   const manejarCantidad = (e) => {
     const nuevaCantidad = parseInt(e.target.value, 10);
@@ -23,7 +22,7 @@ function CasillasHorizontales({ producto }) {
 
   const informacionProducto = () => {
     crearCookie("IdInfoProducto", producto.id);
-    navegar(`/producto/${producto.nombre}`);
+    navigate(`/producto/`);
   };
 
   const agregarAlCarrito = () => {
@@ -31,45 +30,43 @@ function CasillasHorizontales({ producto }) {
     itemsCarrito.push(producto.id);
     crearCookie("ids", JSON.stringify(itemsCarrito));
     crearCookie("usuarioCarrito", traerCookie("idUsuario"));
-    navegar(`/carrito`);
+    navigate(`/carrito`);
   };
 
   return (
-    <Box className='caja-producto-horizontal' onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <Card size="2" style={{ display: 'flex', flexDirection: 'row' }}>
-        <Inset clip="padding-box" >
-          <img
-            src={producto.imagen}
-            alt={producto.nombre}
-            style={{
-              display: 'block',
-              objectFit: 'cover',
-              width: '700px',
-              height: '210px',
-              marginRight:'150px',
-            }}
-          />
-        </Inset>
-        <Box>
-          <div className={`producto-modal ${hover ? 'visible' : ''}`}>
-            <Heading>{producto.nombre}</Heading>
-            <Text as='p'>Precio unidad: ₡{producto.precio}</Text>
-            <Text as='p'>Cantidad</Text>
-            <input 
-              type="number"
-              value={cantidad}
-              onChange={manejarCantidad}
-              min="1"
-              max="5"
-            />
-            <Text as='p' style={{ marginTop: "35px" }}>Precio Total: ₡{precioTotal}</Text>
-            <Box>
-              <Button onClick={informacionProducto}>Más Información</Button>
-              <Button onClick={agregarAlCarrito}>Agregar al carrito</Button>
-            </Box>
-          </div>
-        </Box>
-      </Card>
+    <Box
+      className='card'    >
+      <div className="imgBx">
+        <img src={producto.imagen} alt={producto.nombre} />
+      </div>
+      <div className="details">
+        <Heading as="h3">
+          {producto.nombre} <br />
+          <span>{producto.tipo}</span>
+        </Heading>
+        <h4>Descripción</h4>
+        <p>{producto.descripcion}</p>
+        <h4>Cantidad</h4>
+        <input
+          type="number"
+          value={cantidad}
+          onChange={manejarCantidad}
+          min="1"
+          max="5"
+          className="cantidad-input"
+        />
+          <h2>
+            ₡{precioTotal.toFixed(2)}
+          </h2>
+        <div className="group">
+          <Button onClick={informacionProducto} className="buy-now-btn">
+            Más Información
+          </Button>
+          <Button onClick={agregarAlCarrito} className="buy-now-btn">
+            Agregar al carrito
+          </Button>
+        </div>
+      </div>
     </Box>
   );
 }

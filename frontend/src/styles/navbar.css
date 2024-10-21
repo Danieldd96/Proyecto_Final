@@ -63,26 +63,70 @@
 
 
 .cart-icon{
-    color: white;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px; 
+    height: 35px;
+    font-size: 1.3em;
     text-decoration: none;
-    font-size: 20px;
-    border: solid white 2px;
-    border-radius: 10%;
-    padding: 2px 8px 0px 5px;   
+    color:white;
+    border-radius: 10px;
+    border: 1px solid gray;
 }
 .what,
 .insta,
-.face{
-    color: white;
+.face {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px; 
+    height: 35px;
+    font-size: 2em;
     text-decoration: none;
-    font-size: 20px;
-    border: solid white 2px;
-    border-radius: 10%;
-    padding: 2px 8px 0px 5px;
-    
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: background 0.25s, transform 0.5s ease;
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.1);
+    border: 2px solid white;
 }
 
-.cart-icon:hover{
+.what:hover,
+.insta:hover,
+.face:hover {
+    transform: scale(1.2) rotate(20deg);
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+.what {
+    --clr: #00a783;
+    border-color: var(--clr);
+}
+
+.insta {
+    --clr: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045); 
+    border-color: #fd1d1d;
+}
+
+.face {
+    --clr: #333333; 
+    border-color: #333333;
+}
+
+.what:hover {
+    background: var(--clr);
+}
+
+.insta:hover {
+    background: var(--clr);
+}
+
+
+.cart-icon:hover {
+    transform: scale(1.1);
     color: gray;
 }
 
