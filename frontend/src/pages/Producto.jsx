@@ -4,6 +4,7 @@ import Navbar from '../components/navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
 import { traerCookie } from '../hooks/Cookies';
+import ReactStars from 'react-rating-stars-component';
 
 const Producto = () => {
     const id = traerCookie('IdInfoProducto');
@@ -13,6 +14,7 @@ const Producto = () => {
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const [imagen, setImagen] = useState("");
+    const [rating, setRating] = useState(0); 
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
     
     const Obtener = async () => {
@@ -45,6 +47,10 @@ const Producto = () => {
         }
     };
 
+    const cambioRating = (newRating) => {
+        setRating(newRating);
+    };
+
     return (
         <div>
             <Navbar />
@@ -66,6 +72,20 @@ const Producto = () => {
                             <span>{cantidad}</span>
                             <button onClick={incrementarCantidad}>+</button><br />
                         <button className="add-to-cart">Añadir al carrito</button>
+                        </div>
+
+                        <div className="rating-container">
+                            <h2>Calificación</h2>
+                            <ReactStars
+                                count={5}
+                                onChange={cambioRating}
+                                size={50}
+                                activeColor="#ffd700"
+                                value={rating}
+                            />
+                            <p className="rating-display">
+                                {rating === 0 ? "Califica este producto" : `Calificación: ${rating} estrella${rating > 1 ? 's' : ''}`}
+                            </p>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 import ScrollButton from '../components/ScrollButton';
 import { Get } from '../hooks/Get';
 import '../styles/MisProductos.css';
