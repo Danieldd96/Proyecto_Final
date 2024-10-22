@@ -232,3 +232,34 @@
     color: red;
     font-weight: bold;
 }
+
+.navbarIzquierdo .nav-link,
+.navbarCentro {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbarIzquierdo .nav-link::before,
+.navbarCentro::before {
+    content: attr(data-text);
+    position: absolute;
+    color: var(--clr);
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    -webkit-text-stroke: 1px var(--clr);
+}
+
+.navbarIzquierdo .nav-link:hover::before,
+.navbarCentro :hover::before {
+    width: 100%;
+    filter: drop-shadow(0 0 20px var(--clr));
+}
+
+.navbarIzquierdo .nav-link:nth-child(1)::before { --clr: #00ade1; }
+.navbarIzquierdo .nav-link:nth-child(2)::before { --clr: #ff6492; }
+.navbarIzquierdo .nav-link:nth-child(3)::before { --clr: #ffdd1c; }
+.navbarCentro ::before { --clr: #00dc82; } 

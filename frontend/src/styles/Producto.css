@@ -104,4 +104,58 @@
     color: #d3d3d3;
     line-height: 1.6;
 }
+
+.comments-section {
+    margin-top: 40px;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.comment-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.submit-comment {
+    align-self: flex-start;
+    background-color: #ff5555;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
   
+  .submit-comment:hover {
+    background-color: #e60000;
+  }
+  
+  .comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .comment-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .comment-item p {
+    color: #d3d3d3;
+  }
+  
+  .comment-item span {
+    color: #ff5555;
+  }

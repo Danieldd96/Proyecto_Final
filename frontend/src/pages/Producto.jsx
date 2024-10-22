@@ -15,8 +15,13 @@ const Producto = () => {
     const [descripcion, setDescripcion] = useState("");
     const [imagen, setImagen] = useState("");
     const [rating, setRating] = useState(0); 
-    const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
+    const [comentarios, setComentarios] = useState([]);
+    const [comentarioTexto, setComentarioTexto] = useState("");
+    const [comentarioRating, setComentarioRating] = useState(0);
+    const usuario = traerCookie('email')
     
+    const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
+
     const Obtener = async () => {
         const data = await Get(apiUrl);
         console.log(data);
@@ -47,8 +52,18 @@ const Producto = () => {
         }
     };
 
-    const cambioRating = (newRating) => {
-        setRating(newRating);
+    const CrearComentario = () => {
+        if (comentarioTexto && comentarioRating) {
+            const nuevoComentario = {
+                texto: comentarioTexto,
+                rating: comentarioRating,
+                usuario: usuario
+            };
+            setComentarios([...comentarios, nuevoComentario]);
+            setComentarioTexto(""); 
+            setComentarioRating(0);
+
+        }
     };
 
     return (
@@ -65,7 +80,6 @@ const Producto = () => {
                         </div>
                         <img src={imagen} alt="Vista previa" className="product-image" />
 
-
                         <div className="quantity-controls" style={{justifyContent:"space-between",margin:"10px"}}>
                         <p className="product-price">₡{precioTotal.toFixed(2)}</p>
                             <button onClick={disminuirCantidad}>-</button>
@@ -78,7 +92,7 @@ const Producto = () => {
                             <h2>Calificación</h2>
                             <ReactStars
                                 count={5}
-                                onChange={cambioRating}
+                                onChange={setRating}
                                 size={50}
                                 activeColor="#ffd700"
                                 value={rating}
@@ -87,6 +101,46 @@ const Producto = () => {
                                 {rating === 0 ? "Califica este producto" : `Calificación: ${rating} estrella${rating > 1 ? 's' : ''}`}
                             </p>
                         </div>
+                    </div>
+                </div>
+
+                <div className="comments-section">
+                    <h2>Comentarios</h2>
+                    <div className="comment-form">
+                        <textarea
+                            value={comentarioTexto}
+                            onChange={(e) => setComentarioTexto(e.target.value)}
+                            placeholder="Escribe tu comentario..."
+                            rows="4"
+                            className="comment-textarea"
+                        />
+                        <ReactStars
+                            count={5}
+                            onChange={setComentarioRating}
+                            size={30}
+                            activeColor="#ffd700"
+                            value={comentarioRating}
+                        />
+                        <button className="submit-comment" onClick={CrearComentario}>Publicar comentario</button>
+                    </div>
+
+                    <div className="comments-list">
+                        {comentarios.map((comentario, index) => (
+                            <div key={index} className="comment-item">
+                                <div style={{backgroundColor:"#0033",color:"white",height:"100%",width:"100%",padding:"10px",borderRadius:"20px",border:"2px solid #555"}}>
+                                <ReactStars
+                                    count={5}
+                                    value={comentario.rating}
+                                    size={20}
+                                    edit={false}
+                                    activeColor="#ffd700"
+                                />
+                                <span>{comentario.usuario}</span>
+
+                                <p style={{marginLeft:"10px",borderLeft:"2px solid #555",paddingLeft:"10px"}}>{comentario.texto}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 

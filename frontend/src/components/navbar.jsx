@@ -63,9 +63,9 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbarIzquierdo">
-                <Link to="/accesorios" className="nav-link">Accesorios</Link>
-                <Link to='/servicios' className="nav-link">Servicios</Link>
-                <Link to='/bicicletas' className="nav-link">Bicicletas</Link>
+                <Link to="/accesorios" className="nav-link" data-text="Accesorios">Accesorios</Link>
+                <Link to='/servicios' className="nav-link" data-text="Servicios">Servicios</Link>
+                <Link to='/bicicletas' className="nav-link" data-text="Bicicletas">Bicicletas</Link>
             </div>
 
             <div className="navbarCentro">
