@@ -22,7 +22,7 @@ function CasillasHorizontales({ producto }) {
 
   const informacionProducto = () => {
     crearCookie("IdInfoProducto", producto.id);
-    navigate(`/producto/`);
+    navigate("/producto");
   };
 
   const agregarAlCarrito = () => {

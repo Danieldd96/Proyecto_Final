@@ -4,8 +4,7 @@ import Navbar from '../components/navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
 import { traerCookie } from '../hooks/Cookies';
-import ReactStars from 'react-rating-stars-component';
-
+import ReactStars from 'react-stars';
 const Producto = () => {
     const id = traerCookie('IdInfoProducto');
     const [cantidad, setCantidad] = useState(1);

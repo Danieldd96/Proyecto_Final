@@ -1,7 +1,7 @@
-.agendar-form input,
-.agendar-form select,
-.agendar-form textarea {
-    width: 90%;
+
+
+.calendar-form {
+  width: 100%;
     padding: 10px;
     font-size: 18px;
     margin-top: 5px;
@@ -10,6 +10,8 @@
 }
 
 
-
-
-  
+.calendar-display {
+  transform: scale(0.7);
+  width: 200%;
+  order: 1;
+}
