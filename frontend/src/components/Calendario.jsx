@@ -17,8 +17,7 @@ const Ajustes = dateFnsLocalizer({
   locales,
 });
 
-
-const Calendario = () => {
+const Calendario = ({ eventos }) => {
   return (
     <div className="dark-mode-calendar">
       <header className="calendar-header">
@@ -26,9 +25,10 @@ const Calendario = () => {
       </header>
       <Calendar
         localizer={Ajustes}
+        events={eventos}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 850  }}
+        style={{ height: 850 }}
         views={['month', 'week', 'day']}
         defaultView={Views.MONTH}
         messages={{

@@ -1,8 +1,5 @@
-
-
 .calendar-form {
-  width: 100%;
-    padding: 10px;
+    width: 100%;
     font-size: 18px;
     margin-top: 5px;
     border: 1px solid #ccc;
@@ -12,6 +9,6 @@
 
 .calendar-display {
   transform: scale(0.7);
-  width: 200%;
+  width: 300%;
   order: 1;
 }

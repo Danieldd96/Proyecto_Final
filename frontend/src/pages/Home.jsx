@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/navbar'
 import Carrusel from '../components/carrusel'
 import "../styles/home.css"
 import Casillas from '../components/Casillas'

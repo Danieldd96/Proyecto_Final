@@ -148,6 +148,12 @@ body {
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.5s;
+}
+
+.thumbnail .item img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
 }
 
 .thumbnail .item.active {
