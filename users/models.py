@@ -3,7 +3,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Creamos la tabla Registro, esta se verá en la base de datos
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     telefono = models.CharField(max_length=20, blank=True, null=True)

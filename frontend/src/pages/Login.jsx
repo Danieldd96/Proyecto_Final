@@ -34,6 +34,7 @@ const Login = () => {
             crearCookie("refresh", data.refresh_token, 7);
             crearCookie("email", data.email, 7); 
             crearCookie("idUsuario", data.id, 7);
+            crearCookie("username", data.username, 7);
 
             setMensaje("Inicio de sesión exitoso.");
             setMensajeTipo("success");

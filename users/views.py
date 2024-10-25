@@ -45,7 +45,8 @@ class InicioSesionView(APIView):
                 'token_type': 'Bearer',
                 'expires_in': str(refresh.access_token.payload['exp']),
                 'id':user.id,
-                'email':user.email
+                'email':user.email,
+                'username':user.username
             }, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_400_BAD_REQUEST)

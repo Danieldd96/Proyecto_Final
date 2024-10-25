@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 import '../styles/Carrito.css';
 import { GetByUser } from '../hooks/Get';
 import { BiTrash } from 'react-icons/bi';
@@ -8,6 +8,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import FormularioPago from '../components/FormularioPago';
 import { traerCookie,crearCookie } from '../hooks/Cookies';
+import generarFacturaPDF from '../utils/generarFacturaPDF';
+
 // Carga la clave pública de Stripe
 const stripePromise = loadStripe('pk_test_51Q7jepP8ALRaQMZcJ5FvztYBTtsOlLmIBZGV8tk7r9eEmPDAl83whOHJipMzeT6b7oGOxJ5R6Apt2Rjx3gFiOahP00OjoiEWl0');
 
@@ -78,8 +80,17 @@ const Carrito = () => {
 
     const handlePaymentSuccess = () => {
         const usuarioId = traerCookie("idUsuario");
-        const compraData = { productos: ids, usuario: usuarioId };
+        const name = traerCookie("username");
+        const compraData = { productos: ids, usuario: usuarioId, nombre: name };
         
+        // Crear y descargar la factura
+        generarFacturaPDF(Datos.map(producto => ({
+            nombre: producto.nombre,
+            precio: producto.precio,
+            cantidad: cantidadPorProducto[producto.id],
+            tienda: 'LOGO',
+        })), precioTotal);
+    
         crearCookie('compraExitosa', JSON.stringify(compraData), 7);
         limpiarCarrito();
         setTimeout(() => {

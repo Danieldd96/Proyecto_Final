@@ -4,6 +4,8 @@
     "@stripe/react-stripe-js": "^2.8.1",
     "@stripe/stripe-js": "^4.7.0",
     "date-fns": "^4.1.0",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "react-intersection-observer": "^9.13.1",
     "react-rating-stars-component": "^2.2.0",
     "react-stars": "^2.2.5",
