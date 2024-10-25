@@ -3,6 +3,10 @@ from rest_framework import viewsets
 from .serializer import CategoriaSerializer,ProductosSerializer,ResenasSerializer
 from .models import Categoria,Productos,Resenas
 from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from rest_framework import status
+
+
 # Create your views here.
 
 class CategoriaViewSet(viewsets.ModelViewSet):
@@ -17,10 +21,23 @@ class ResenasViewSet(viewsets.ModelViewSet):
     queryset = Resenas.objects.all()
     serializer_class = ResenasSerializer
     
-class BusquedaCategoriaView(ListAPIView):
-    queryset = Productos.objects.all()
+
+class BusquedaProductoView(ListAPIView):
     serializer_class = ProductosSerializer
-    lookup_field = 'categoria'
-    def get_queryset(self): 
-        producto_categoria = self.kwargs.get(self.lookup_field) 
-        return Productos.objects.filter(categoria=producto_categoria)
+
+    def get(self, request, *args, **kwargs):
+        query = request.query_params.get('q', '')
+        if not query:
+            return Response({"error": "Se necesita una consulta de búsqueda"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        productos_filtrados = Productos.objects.filter(
+            nombre=query) | Productos.objects.filter(categoria=query)
+
+        # Agrupar los productos por categoría
+        categorias_agrupadas = {}
+        for producto in productos_filtrados:
+            if producto.categoria not in categorias_agrupadas:
+                categorias_agrupadas[producto.categoria] = []
+            categorias_agrupadas[producto.categoria].append(self.get_serializer(producto).data)
+        
+        return Response(categorias_agrupadas)

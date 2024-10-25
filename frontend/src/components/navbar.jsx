@@ -6,13 +6,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { traerCookie,crearCookie } from '../hooks/Cookies';
 
 const Navbar = () => {
-    const [consulta, setConsulta] = useState('');
-    const [mostrarbusqueda, setmostrarbusqueda] = useState(false); // Estado para mostrar y ocultar input de búsqueda
-    const [placeholder, setPlaceholder] = useState(0);
+    const [consulta, setConsulta] = useState(''); // Estado de consulta de búsqueda
+    const [mostrarbusqueda, setMostrarBusqueda] = useState(false); // Estado para mostrar u ocultar el input de búsqueda
+    const [resultados, setResultados] = useState({}); // Estado para guardar los resultados de la búsqueda
     const [user, setUser] = useState(null);
+    const [placeholder, setPlaceholder] = useState(0);
     const navigate = useNavigate();
-
-
 
     const placeholders = [
         "Buscar bicicletas",
@@ -23,21 +22,34 @@ const Navbar = () => {
         "Buscar partes"
     ];
 
+    // Mostrar u ocultar el input de búsqueda
     const Mostrarbuscador = () => {
-        setmostrarbusqueda(!mostrarbusqueda);
+        setMostrarBusqueda(!mostrarbusqueda);
     };
 
-    const inputEnter = (event) => {
-        if (event.key === 'Enter') {
-            buscador();
-        }
-    };
-    const buscador = () => {
-        if (consulta.trim()) {
-            alert(`Buscando: ${consulta}`); 
+    // Función para buscar productos cada vez que el input cambie
+    const buscarProductos = async (query) => {
+        if (query.trim()) {
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/v3/busqueda/?q=${query}`);
+                const data = await response.json();
+                setResultados(data); // Guardar resultados en el estado
+            } catch (error) {
+                console.error("Error al buscar productos:", error);
+            }
+        } else {
+            setResultados({}); // Limpiar resultados si no hay consulta
         }
     };
 
+    // Cada vez que el input cambie, se realiza la búsqueda
+    const cambioInput = (e) => {
+        const value = e.target.value;
+        setConsulta(value);
+        buscarProductos(value);
+    };
+
+    // Función para cambiar el placeholder dinámicamente
     useEffect(() => {
         const interval = setInterval(() => {
             setPlaceholder((prevIndex) => (prevIndex + 1) % placeholders.length);
@@ -45,6 +57,7 @@ const Navbar = () => {
         return () => clearInterval(interval);
     }, []);
 
+    // Verificar si el usuario ha iniciado sesión
     useEffect(() => {
         const idUsuario = traerCookie('idUsuario');
         const email = traerCookie('email');
@@ -53,11 +66,18 @@ const Navbar = () => {
         }
     }, []);
 
+    // Cerrar sesión y limpiar cookies
     const cerrarSesion = () => {
         crearCookie('idUsuario', '', 7);
         crearCookie('email', '', 7);
         crearCookie('usuario', '', 7);
-        window.location.reload()
+        window.location.reload();
+    };
+
+    // Redirigir al producto seleccionado
+    const ProductoInfo = (idProducto) => {
+        crearCookie('IdInfoProducto', idProducto, 7);
+        navigate(`/producto`); 
     };
 
     return (
@@ -76,14 +96,41 @@ const Navbar = () => {
                 <div className="search-container">
                     <i className='bx bx-search search-icon' onClick={Mostrarbuscador}></i>
                     {mostrarbusqueda && (
-                        <input
-                            type="text"
-                            className="search-input"
-                            value={consulta}
-                            placeholder={placeholders[placeholder]}
-                            onChange={(e) => setConsulta(e.target.value)}
-                            onKeyDown={inputEnter}
-                        />
+                        <div className="search-dropdown">
+                            <input
+                                type="text"
+                                className="search-input"
+                                value={consulta}
+                                placeholder={placeholders[placeholder]}
+                                onChange={cambioInput}
+                            />
+                            {Object.keys(resultados).length > 0 && (
+                                <div className="resultados-busqueda">
+                                    {Object.keys(resultados).map((categoria) => (
+                                        <div key={categoria}>
+                                            <h4>{categoria}</h4>
+                                            <ul>
+                                                {resultados[categoria].map((producto) => (
+                                                    <li key={producto.id}>
+                                                        <button
+                                                            className="product-link"
+                                                            onClick={() => ProductoInfo(producto.id)}
+                                                        >
+                                                            <img 
+                                                                src={producto.imagen} 
+                                                                alt={producto.nombre} 
+                                                                className="product-thumbnail" 
+                                                            />
+                                                            {producto.nombre} - ${producto.precio}
+                                                        </button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     )}
                 </div>
 
@@ -91,6 +138,7 @@ const Navbar = () => {
                 <Link className="face"><box-icon  type='logo' name='facebook-circle' color="rgb(55, 55, 203)"></box-icon></Link>
                 <a href="#" className="insta"><box-icon type='logo' name='instagram-alt' color="#fff"></box-icon></a>
                 <a href="#" className="what"><box-icon type='logo' name='whatsapp' color="#00ff00"></box-icon></a>
+
                 {user ? (
                     <DropdownMenu.Root>
                         <DropdownMenu.Trigger asChild>
@@ -129,7 +177,6 @@ const Navbar = () => {
                         <a href="/registro" className="register-btn">Registrarse</a>
                     </>
                 )}
-
             </div>
         </nav>
     );
