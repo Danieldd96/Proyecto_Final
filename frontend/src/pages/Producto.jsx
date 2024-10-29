@@ -6,6 +6,7 @@ import { Get } from '../hooks/Get';
 import { darDatos } from '../hooks/Post';
 import { traerCookie } from '../hooks/Cookies';
 import ReactStars from 'react-stars';
+
 const Producto = () => {
     const id = traerCookie('IdInfoProducto');
     const [cantidad, setCantidad] = useState(1);
@@ -20,20 +21,30 @@ const Producto = () => {
     const [comentarioRating, setComentarioRating] = useState(0);
     const usuario = traerCookie('email')
     const usuarioID = traerCookie('idUsuario')
-    
+    const [listaRespuestas, setListaRespuestas] = useState([]);
+
+    const apiUrlAgregarComentario = "http://127.0.0.1:8000/api/v5/agregar/comentario/";
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
 
     const Obtener = async () => {
-        const data = await Get(apiUrl);
-        console.log(data);
-        setNombre(data.nombre);
-        setDescripcion(data.descripcion);
-        setPrecioBase(data.precio);
-        setImagen(data.imagen);
-    }
-    useEffect(()=>{
+        try {
+            const data = await Get(apiUrl);
+            setNombre(data.nombre);
+            setDescripcion(data.descripcion);
+            setPrecioBase(data.precio);
+            setImagen(data.imagen);
+
+            const comentariosData = await Get(apiUrlAgregarComentario);
+            const comentariosFiltrados = comentariosData.filter(comentario => comentario.producto_comentario === parseInt(id));
+            setListaRespuestas(comentariosFiltrados);
+        } catch (error) {
+            console.error("Error al obtener los datos del producto o los comentarios:", error);
+        }
+    };
+
+    useEffect(() => {
         Obtener();
-    },[]);
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -53,7 +64,7 @@ const Producto = () => {
         }
     };
 
-    const CrearComentario = async() => {
+    const CrearComentario = async () => {
         if (comentarioTexto && comentarioRating) {
             const nuevoComentario = {
                 texto_comentario: comentarioTexto,
@@ -61,15 +72,10 @@ const Producto = () => {
                 usuario_comentario: usuarioID,
                 producto_comentario: id
             };
-            console.log(usuarioID);
-            
-            setComentarios([...comentarios, nuevoComentario]);
-            const peticion = await darDatos(nuevoComentario,`http://127.0.0.1:8000/api/v5/agregar/comentario/`);
-            console.log(nuevoComentario);
-            console.log(peticion);
+            await darDatos(nuevoComentario, apiUrlAgregarComentario);
             setComentarioTexto(""); 
             setComentarioRating(0);
-
+            Obtener();
         }
     };
 
@@ -78,9 +84,8 @@ const Producto = () => {
             <Navbar />
             <div className="product-container">
                 <div className="product-header">
-                        <h1>{nombre}</h1>
+                    <h1>{nombre}</h1>
                     <div className="product-details">
-
                         <div className="more-info">
                             <h2>MÁS INFORMACIÓN</h2>
                             <p>{descripcion}</p>
@@ -88,11 +93,11 @@ const Producto = () => {
                         <img src={imagen} alt="Vista previa" className="product-image" />
 
                         <div className="quantity-controls" style={{justifyContent:"space-between",margin:"10px"}}>
-                        <p className="product-price">₡{precioTotal.toFixed(2)}</p>
+                            <p className="product-price">₡{precioTotal.toFixed(2)}</p>
                             <button onClick={disminuirCantidad}>-</button>
                             <span>{cantidad}</span>
                             <button onClick={incrementarCantidad}>+</button><br />
-                        <button className="add-to-cart">Añadir al carrito</button>
+                            <button className="add-to-cart">Añadir al carrito</button>
                         </div>
 
                         <div className="rating-container">
@@ -132,19 +137,19 @@ const Producto = () => {
                     </div>
 
                     <div className="comments-list">
-                        {comentarios.map((comentario, index) => (
+                        {listaRespuestas.map((comentario, index) => (
                             <div key={index} className="comment-item">
-                                <div style={{backgroundColor:"#0033",color:"white",height:"100%",width:"100%",padding:"10px",borderRadius:"20px",border:"2px solid #555"}}>
-                                <ReactStars
-                                    count={5}
-                                    value={comentario.rating}
-                                    size={20}
-                                    edit={false}
-                                    activeColor="#ffd700"
-                                />
-                                <span>{comentario.usuario}</span>
-
-                                <p style={{marginLeft:"10px",borderLeft:"2px solid #555",paddingLeft:"10px"}}>{comentario.texto}</p>
+                                <div style={{backgroundColor: "#0033", color: "white", height: "100%", width: "100%", padding: "10px", borderRadius: "20px", border: "2px solid #555"}}>
+                                    <ReactStars
+                                        count={5}
+                                        value={comentario.valoracion}
+                                        size={20}
+                                        edit={false}
+                                        activeColor="#ffd700"
+                                    />
+                                    <span>{comentario.usuario}</span>
+                                    <span>{comentario.fecha_comentario}</span>
+                                    <p style={{marginLeft: "10px", borderLeft: "2px solid #555", paddingLeft: "10px"}}>{comentario.texto_comentario}</p>
                                 </div>
                             </div>
                         ))}
@@ -152,13 +157,11 @@ const Producto = () => {
                 </div>
 
                 <div className="related-products-container">
-                    <div className="related-products-header">
-                        Productos Relacionados
-                    </div>
+                    <div className="related-products-header">Productos Relacionados</div>
                     <div className="related-products-grid">
-                        <Casillas producto={{nombre:"Producto 1",precio:100,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
-                        <Casillas producto={{nombre:"Producto 2",precio:200,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
-                        <Casillas producto={{nombre:"Producto 3",precio:300,imagen:"https://i.imgur.com/9o9r5kG.jpg"}}/>
+                        <Casillas producto={{nombre: "Producto 1", precio: 100, imagen: "https://i.imgur.com/9o9r5kG.jpg"}} />
+                        <Casillas producto={{nombre: "Producto 2", precio: 200, imagen: "https://i.imgur.com/9o9r5kG.jpg"}} />
+                        <Casillas producto={{nombre: "Producto 3", precio: 300, imagen: "https://i.imgur.com/9o9r5kG.jpg"}} />
                     </div>
                 </div>
             </div>
