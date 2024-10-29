@@ -3,6 +3,7 @@ import Casillas from '../components/Casillas';
 import Navbar from '../components/navbar';
 import '../styles/Producto.css';
 import { Get } from '../hooks/Get';
+import { darDatos } from '../hooks/Post';
 import { traerCookie } from '../hooks/Cookies';
 import ReactStars from 'react-stars';
 const Producto = () => {
@@ -18,6 +19,7 @@ const Producto = () => {
     const [comentarioTexto, setComentarioTexto] = useState("");
     const [comentarioRating, setComentarioRating] = useState(0);
     const usuario = traerCookie('email')
+    const usuarioID = traerCookie('idUsuario')
     
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
 
@@ -51,14 +53,20 @@ const Producto = () => {
         }
     };
 
-    const CrearComentario = () => {
+    const CrearComentario = async() => {
         if (comentarioTexto && comentarioRating) {
             const nuevoComentario = {
-                texto: comentarioTexto,
-                rating: comentarioRating,
-                usuario: usuario
+                texto_comentario: comentarioTexto,
+                valoracion: parseInt(comentarioRating),
+                usuario_comentario: usuarioID,
+                producto_comentario: id
             };
+            console.log(usuarioID);
+            
             setComentarios([...comentarios, nuevoComentario]);
+            const peticion = await darDatos(nuevoComentario,`http://127.0.0.1:8000/api/v5/agregar/comentario/`);
+            console.log(nuevoComentario);
+            console.log(peticion);
             setComentarioTexto(""); 
             setComentarioRating(0);
 

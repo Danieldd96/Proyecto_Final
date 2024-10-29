@@ -3,13 +3,13 @@ async function darDatos(objeto,productsUrl){
         const respuesta = await fetch(productsUrl,{
            method: "POST",
            headers: {
-            "Content-type": "application/json; charset=UTF-8"
+            "Content-type": "application/json;"
           },
           body: JSON.stringify(objeto)
         })
         const datos = await respuesta.json()
         console.log(datos)
-        console.log(`Producto ${objeto} publicado exitosamente`)
+        return datos
     } catch (error) {
         console.error(error);
     }

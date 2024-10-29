@@ -11,4 +11,5 @@ urlpatterns = [
     path('api/v2/',include('users.urls')),
     path('api/v3/',include('Productos.urls')),
     path('api/v4/',include('tiendas.urls')),
+    path('api/v5/',include('comentarios.urls')),
 ]
