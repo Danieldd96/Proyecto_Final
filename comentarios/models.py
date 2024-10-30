@@ -11,7 +11,7 @@ class Comentario(models.Model):
         return self.texto_comentario
 
 class Respuestas(models.Model):
-    respuesta_comentario = models.ForeignKey('comentarios.Comentario',on_delete=models.CASCADE,related_name='respuestas_comentario') # De lo que esta respondiendo
+    respuesta_comentario = models.ForeignKey('comentarios.Comentario',on_delete=models.CASCADE,related_name='respuestas_comentario') # Comentario al que esta respondiendo
     usuario_respuesta_comentario = models.ForeignKey('users.Usuario',on_delete=models.CASCADE,related_name='respuestas_usuario') # El que hizo el comentario
     respuesta_texto = models.TextField() # La respuesta
     usuario_responde = models.ForeignKey('users.Usuario',on_delete=models.CASCADE,related_name='respuestas_de_usuario') # El que respond el comentario

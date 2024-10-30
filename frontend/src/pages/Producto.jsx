@@ -19,9 +19,14 @@ const Producto = () => {
     const [comentarios, setComentarios] = useState([]);
     const [comentarioTexto, setComentarioTexto] = useState("");
     const [comentarioRating, setComentarioRating] = useState(0);
-    const usuario = traerCookie('email')
-    const usuarioID = traerCookie('idUsuario')
+    const [respuestaComentario, setRespuestaComentario] = useState('');
+    const [comentarioRespondiendo, setComentarioRespondiendo] = useState(null);
+    const usuario = traerCookie('email');
+    const usuarioID = traerCookie('idUsuario');
     const [listaRespuestas, setListaRespuestas] = useState([]);
+    const [mensajeError, setMensajeError] = useState('');
+
+    const [respuestasVisibles, setRespuestasVisibles] = useState({}); // Estado para controlar la visibilidad de las respuestas
 
     const apiUrlAgregarComentario = "http://127.0.0.1:8000/api/v5/agregar/comentario/";
     const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
@@ -36,7 +41,14 @@ const Producto = () => {
 
             const comentariosData = await Get(apiUrlAgregarComentario);
             const comentariosFiltrados = comentariosData.filter(comentario => comentario.producto_comentario === parseInt(id));
-            setListaRespuestas(comentariosFiltrados);
+
+            const respuestasData = await Get('http://127.0.0.1:8000/api/v5/agregar/respuesta/');
+            const comentariosConRespuestas = comentariosFiltrados.map(comentario => ({
+                ...comentario,
+                respuestas: respuestasData.filter(respuesta => respuesta.respuesta_comentario === comentario.id)
+            }));
+            
+            setListaRespuestas(comentariosConRespuestas);
         } catch (error) {
             console.error("Error al obtener los datos del producto o los comentarios:", error);
         }
@@ -77,6 +89,31 @@ const Producto = () => {
             setComentarioRating(0);
             Obtener();
         }
+    };
+
+    const enviarRespuesta = async (infoComentario) => {
+        if (!respuestaComentario.trim()) {
+            setMensajeError("La respuesta no puede estar vacía.");
+            return;
+        }
+        const respuesta = {
+            respuesta_comentario: infoComentario.id,
+            usuario_respuesta_comentario: infoComentario.usuario_comentario,
+            respuesta_texto: respuestaComentario,
+            usuario_responde: usuarioID
+        };
+        await darDatos(respuesta, 'http://127.0.0.1:8000/api/v5/agregar/respuesta/');
+        setRespuestaComentario('');
+        setComentarioRespondiendo(null);
+        setMensajeError('');
+        Obtener();
+    };
+
+    const toggleRespuestas = (id) => {
+        setRespuestasVisibles(prevState => ({
+            ...prevState,
+            [id]: !prevState[id] // Alterna la visibilidad
+        }));
     };
 
     return (
@@ -139,17 +176,53 @@ const Producto = () => {
                     <div className="comments-list">
                         {listaRespuestas.map((comentario, index) => (
                             <div key={index} className="comment-item">
-                                <div style={{backgroundColor: "#0033", color: "white", height: "100%", width: "100%", padding: "10px", borderRadius: "20px", border: "2px solid #555"}}>
-                                    <ReactStars
-                                        count={5}
-                                        value={comentario.valoracion}
-                                        size={20}
-                                        edit={false}
-                                        activeColor="#ffd700"
-                                    />
-                                    <span>{comentario.usuario}</span>
-                                    <span>{comentario.fecha_comentario}</span>
-                                    <p style={{marginLeft: "10px", borderLeft: "2px solid #555", paddingLeft: "10px"}}>{comentario.texto_comentario}</p>
+                                <img src="src/img/marzo.png" alt="Avatar" className="comment-avatar" />
+                                <div className="comment-content">
+                                    <div className="comment-header">
+                                        <span className="comment-username">{comentario.usuario_email}</span>
+                                        <span className="comment-date">{comentario.fecha_comentario}</span>
+                                        <ReactStars className='comment-rating'
+                                            count={comentario.cantidad_reacciones}
+                                            size={24}
+                                            color="#ffd700"
+                                            activeColor="#ffd700"
+                                            value={comentario.valoracion}
+                                        />
+                                    </div>
+                                    <p className="comment-text">{comentario.texto_comentario}</p>
+                                    <div className="comment-actions">
+                                        <button>👍</button>
+                                        <button>👎</button>
+                                        <button onClick={() => setComentarioRespondiendo(comentario.id)}>Responder</button>
+                                        <button onClick={() => toggleRespuestas(comentario.id)}>
+                                            {respuestasVisibles[comentario.id] ? 'Ocultar respuestas' : 'Ver respuestas'}
+                                        </button>
+                                    </div>
+
+                                    {comentarioRespondiendo === comentario.id && (
+                                        <div className="reply-form">
+                                            <textarea
+                                                value={respuestaComentario}
+                                                onChange={(e) => setRespuestaComentario(e.target.value)}
+                                                placeholder="Escribe tu respuesta..."
+                                                rows="2"
+                                                className="comment-textarea"
+                                            />
+                                            <button onClick={() => setComentarioRespondiendo(null)} className="submit-reply">Cancelar</button>
+                                            <button onClick={() => enviarRespuesta(comentario)} className="submit-reply">Responder</button>
+                                            {mensajeError && <p className="error-message">{mensajeError}</p>}
+                                        </div>
+                                    )}
+
+                                    {respuestasVisibles[comentario.id] && ( // Solo mostrar respuestas si son visibles
+                                        <div className="replies-list" >
+                                            {comentario.respuestas.map((respuesta, i) => (
+                                                <div key={i} className="reply-item" style={{marginBottom: "40px"}}>
+                                                    <span className="reply-user">{respuesta.usuario_email}</span>: {respuesta.respuesta_texto}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
