@@ -1,9 +1,12 @@
+import {traerCookie} from "../hooks/Cookies"
+const Cookie = traerCookie('token')
 async function darDatos(objeto,productsUrl){
     try {
         const respuesta = await fetch(productsUrl,{
            method: "POST",
            headers: {
-            "Content-type": "application/json;"
+            "Content-type": "application/json;",
+            'Authorization': `Bearer ${Cookie}`
           },
           body: JSON.stringify(objeto)
         })
