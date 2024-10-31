@@ -160,7 +160,7 @@ const Navbar = () => {
                             <DropdownMenu.Item>Mi calendario</DropdownMenu.Item>
                             <DropdownMenu.Item>Historial mantenimiento</DropdownMenu.Item>
                             <DropdownMenu.Item>Historial facturas</DropdownMenu.Item>
-                            <DropdownMenu.Item>Ajustes</DropdownMenu.Item>
+                            <DropdownMenu.Item><Link to='/publicados'>Productos publicados</Link></DropdownMenu.Item>
                             <DropdownMenu.Item><Link to="/mis-productos">Mis productos</Link></DropdownMenu.Item>
                             <DropdownMenu.Item ><Link to="/publicar">Publicar Producto</Link></DropdownMenu.Item>
                             <DropdownMenu.Item ><Link to="/info">Acerca de</Link></DropdownMenu.Item>

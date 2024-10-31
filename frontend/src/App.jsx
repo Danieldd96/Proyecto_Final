@@ -25,6 +25,7 @@ import Talleres from './pages/Talleres'
 import Agendar from './pages/Agendar'
 import { traerCookie } from './hooks/Cookies'
 import Preguntas from './pages/Preguntas'
+import Publicados from './pages/Publicados'
 
 
 function App() {
@@ -45,6 +46,7 @@ const user = traerCookie("idUsuario")
         <Route path='/mis-productos' element={<MisProductos/>}></Route>
         <Route path='/calendario' element={<CalendMante/>}></Route>
         <Route path='/agendar' element={<Agendar/>}></Route>
+        <Route path='/publicados' element={<Publicados/>}></Route>
       </Route>
       <Route path='/bicicletas' element={<Bicicletas/>}></Route>
       <Route path='/accesorios' element={<Accesorios/>}></Route>
