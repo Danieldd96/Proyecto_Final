@@ -1,5 +1,5 @@
 import React , { useState,useEffect } from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar';
 import Casillas from '../components/Casillas';
 import ScrollButton from '../components/ScrollButton';
 import '../styles/Bicicletas.css';
