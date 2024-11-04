@@ -1,9 +1,10 @@
 import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
-import '../styles/Preguntas.css'
-import Navbar from '../components/Navbar'
+import '../styles/Preguntas.css';
+import Navbar from '../components/navbar';
 import ScrollButton from '../components/ScrollButton';
 
+// Datos de preguntas frecuentes
 const Data = [
   {
     Pregunta: '¿Cómo elegir la bicicleta adecuada?',
@@ -26,39 +27,60 @@ const Data = [
 const Preguntas = () => {
   return (
     <div>
-        <Navbar />
-    <div className="header">
-      <h1 style={{color: 'white', textAlign: 'center'}}>Preguntas Frecuentes</h1>
-      <Accordion.Root type="single"  collapsible style={{border: '3px solid #444',padding: '15px 100px',fontSize: '16px',color: 'white',transition: 'max-height 0.3s ease-in-out'}}>
-        {Data.map((faq, index) => (
-          <Accordion.Item key={index} value={`faq-${index}`} className="accordion-item">
-            <Accordion.Header>
-              <Accordion.Trigger className="accordion-trigger" 
-              style={{
-                backgroundColor:"transparent", 
-                width: '100%', 
-                textAlign: 'center',
-                padding: '10px 0',
-                fontSize: '20px',
-                border:'none'
-                }}>
-                {faq.Pregunta}
-              </Accordion.Trigger>
-            </Accordion.Header>
-            <Accordion.Content style={{
-                padding: '15px 20px',
-                fontSize: '20px',
-                color: '#ddd',
-                transition: 'max-height 0.3s ease-in-out',
-             }} 
+      <Navbar />
+      <div className="header">
+        <h1 style={{ color: 'white', textAlign: 'center' }}>Preguntas Frecuentes</h1>
+
+        {/* Componente de acordeón para las preguntas frecuentes */}
+        <Accordion.Root 
+          type="single" 
+          collapsible 
+          style={{
+            border: '3px solid #444',
+            padding: '15px 100px',
+            fontSize: '16px',
+            color: 'white',
+            transition: 'max-height 0.3s ease-in-out'
+          }}
+        >
+          {Data.map((faq, index) => (
+            //Con cada pregunta, crear un componente de acordeón
+            <Accordion.Item 
+              key={index} 
+              value={`faq-${index}`} 
+              className="accordion-item"
             >
-              {faq.Respuesta}
-            </Accordion.Content>
-          </Accordion.Item>
-        ))}
-      </Accordion.Root>
-    </div>
-    <ScrollButton />
+              <Accordion.Header>
+                <Accordion.Trigger 
+                  className="accordion-trigger" 
+                  style={{
+                    backgroundColor: "transparent",
+                    width: '100%',
+                    textAlign: 'center',
+                    padding: '10px 0',
+                    fontSize: '20px',
+                    border: 'none'
+                  }}
+                >
+                  {faq.Pregunta}
+                </Accordion.Trigger>
+              </Accordion.Header>
+              <Accordion.Content 
+                style={{
+                  padding: '15px 20px',
+                  fontSize: '20px',
+                  color: '#ddd',
+                  transition: 'max-height 0.3s ease-in-out'
+                }}
+              >
+                {faq.Respuesta}
+              </Accordion.Content>
+            </Accordion.Item>
+          ))}
+        </Accordion.Root>
+      </div>
+
+      <ScrollButton />
     </div>
   );
 };
