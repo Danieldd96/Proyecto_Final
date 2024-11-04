@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import emailjs from 'emailjs-com';
 
 const Contacto = () => {
+  // Estado para almacenar los datos del formulario de contacto
   const [datos, setDatos] = useState({
     nombre: '',
     correo: '',
@@ -12,17 +13,20 @@ const Contacto = () => {
     mensaje: ''
   })
 
+  // Maneja el cambio en los campos del formulario y actualiza el estado
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDatos({ ...datos, [name]: value });
   };
 
+  // Envía el correo usando la biblioteca emailjs
   const enviarCorreo = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita la recarga de la página
 
+    // Configura los datos para el envío de email usando el servicio y template de emailjs
     emailjs.send(
-      'service_pwt3uzp',
-      'template_vst2qoe',
+      'service_pwt3uzp', // ID del servicio de emailjs
+      'template_vst2qoe', // ID del template de emailjs
       {
         nombre: datos.nombre,
         correo: datos.correo,
@@ -30,10 +34,11 @@ const Contacto = () => {
         sujeto: datos.sujeto,
         mensaje: datos.mensaje
       },
-      '2WpRvMS3xruYJ7EZ0'
+      '2WpRvMS3xruYJ7EZ0' // Llave pública de emailjs
     )
     .then(() => {
-      alert('Mensaje enviado con éxito!');
+      alert('Mensaje enviado con éxito!'); // Alerta en caso de éxito
+      // Reinicia el estado del formulario después del envío
       setDatos({
         nombre: '',
         correo: '',
@@ -43,8 +48,8 @@ const Contacto = () => {
       });
     })
     .catch((error) => {
-      console.error('Error al enviar el mensaje:', error);
-      alert('Error al enviar el mensaje, por favor intenta nuevamente.');
+      console.error('Error al enviar el mensaje:', error); // Muestra el error en la consola
+      alert('Error al enviar el mensaje, por favor intenta nuevamente.'); // Alerta en caso de error
     });
   };
 
@@ -55,6 +60,7 @@ const Contacto = () => {
         <h2>Contacta con nosotros</h2>
         <form onSubmit={enviarCorreo}>
           <div className='input-box'>
+            {/* Campo de nombre completo */}
             <div className='input-field field'>
               <input
                 className='item'
@@ -69,6 +75,7 @@ const Contacto = () => {
               <label>Nombre completo</label>
             </div>
 
+            {/* Campo de correo */}
             <div className='input-field field'>
               <input
                 className='item'
@@ -83,6 +90,7 @@ const Contacto = () => {
               <label>Correo</label>
             </div>
 
+            {/* Campo de teléfono */}
             <div className='input-field field'>
               <input
                 className='item'
@@ -97,6 +105,7 @@ const Contacto = () => {
               <label>Teléfono</label>
             </div>
 
+            {/* Campo de sujeto */}
             <div className='input-field field'>
               <input
                 className='item'
@@ -111,6 +120,7 @@ const Contacto = () => {
               <label>Sujeto</label>
             </div>
 
+            {/* Campo de mensaje */}
             <div className='textarea-field field'>
               <textarea
                 className='item'
@@ -126,6 +136,7 @@ const Contacto = () => {
               <label>Mensaje</label>
             </div>
 
+            {/* Botón para enviar el formulario */}
             <button type="submit">Enviar</button>
           </div>
         </form>
@@ -133,6 +144,5 @@ const Contacto = () => {
     </div>
   )
 }
-
 
 export default Contacto;
