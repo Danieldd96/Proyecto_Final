@@ -7,12 +7,13 @@ const Acerca = () => {
     <div>
       <Navbar />
       <Box p="7" pr="8">
-
+        {/* El header de la sección */}
         <Heading size="6" mb="2" trim="start">
           Sobre Nuestra Tienda LOGO de Bicicletas
         </Heading>
 
         <Flex direction="column" gap="4">
+          {/* El texto de la sección el cual da una descripción general de la tienda */}
           <Text as="p">
             Somos una tienda especializada en ofrecer productos y servicios para ciclistas de todos los niveles. Aquí
             encontrarás bicicletas de alta calidad, repuestos, ropa, accesorios, y productos de nutrición. Además,
@@ -28,6 +29,7 @@ const Acerca = () => {
           </Heading>
 
           <DataList.Root>
+            {/* El datalist que muestra los servicios que ofrece la tienda */}
             <DataList.Item align="center">
               <DataList.Value>
                 <Badge color="orange" variant="soft" radius="full">
@@ -92,7 +94,7 @@ const Acerca = () => {
 
           <DataList.Root>
             <DataList.Item>
-              
+              {/* El datalist que muestra los teléfonos de la tienda */}
               <DataList.Value>
                 <Link href="tel:70407668">70407668</Link>
               </DataList.Value>
@@ -103,7 +105,7 @@ const Acerca = () => {
             </DataList.Item>
 
             <DataList.Item>
-
+              {/* El datalist que muestra los correos electrónicos de la tienda */}
               <DataList.Value>
                 <Link href="mailto:correo1@example.com">correo1@example.com</Link>
               </DataList.Value>
