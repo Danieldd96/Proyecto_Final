@@ -2,35 +2,36 @@ import React, { useState, useEffect } from 'react';
 import Casillas from '../components/Casillas';
 import Navbar from '../components/navbar';
 import '../styles/Producto.css';
-import { Get } from '../hooks/Get';
-import { darDatos } from '../hooks/Post';
-import { traerCookie } from '../hooks/Cookies';
-import ReactStars from 'react-stars';
+import { Get } from '../hooks/Get';                    ///Importacion de la función para obtener los datos del producto
+import { darDatos } from '../hooks/Post';              ///Importacion de la función para enviar los datos a la API
+import { traerCookie } from '../hooks/Cookies';        ///Importacion de la función para obtener el ID del producto de las cookies
+import ReactStars from 'react-stars';                  ///Importacion del componente de Stars
+
 
 const Producto = () => {
-    const id = traerCookie('IdInfoProducto');
-    const [cantidad, setCantidad] = useState(1);
-    const [precioBase, setPrecioBase] = useState(0);
-    const [precioTotal, setPrecioTotal] = useState(precioBase);
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-    const [imagen, setImagen] = useState("");
-    const [rating, setRating] = useState(0); 
-    const [comentarios, setComentarios] = useState([]);
-    const [comentarioTexto, setComentarioTexto] = useState("");
-    const [comentarioRating, setComentarioRating] = useState(0);
-    const [respuestaComentario, setRespuestaComentario] = useState('');
-    const [comentarioRespondiendo, setComentarioRespondiendo] = useState(null);
-    const usuario = traerCookie('email');
-    const usuarioID = traerCookie('idUsuario');
-    const [listaRespuestas, setListaRespuestas] = useState([]);
-    const [mensajeError, setMensajeError] = useState('');
+    const id = traerCookie('IdInfoProducto');  // Obtiene el ID del producto de las cookies
+    const [cantidad, setCantidad] = useState(1);  // Estado para la cantidad de productos seleccionada
+    const [precioBase, setPrecioBase] = useState(0);  // Estado para el precio base del producto
+    const [precioTotal, setPrecioTotal] = useState(precioBase);  // Estado para el precio total basado en la cantidad
+    const [nombre, setNombre] = useState("");  // Estado para el nombre del producto
+    const [descripcion, setDescripcion] = useState("");  // Estado para la descripción del producto
+    const [imagen, setImagen] = useState("");  // Estado para la imagen del producto
+    const [rating, setRating] = useState(0);  // Estado para el rating del producto
+    const [comentarios, setComentarios] = useState([]);  // Estado para la lista de comentarios
+    const [comentarioTexto, setComentarioTexto] = useState("");  // Estado para el texto de un nuevo comentario
+    const [comentarioRating, setComentarioRating] = useState(0);  // Estado para el rating de un nuevo comentario
+    const [respuestaComentario, setRespuestaComentario] = useState('');  // Estado para la respuesta de un comentario
+    const [comentarioRespondiendo, setComentarioRespondiendo] = useState(null);  // Estado para el comentario que se está respondiendo
+    const usuarioID = traerCookie('idUsuario');  // Obtiene el ID del usuario de las cookies
+    const [listaRespuestas, setListaRespuestas] = useState([]);  // Estado para la lista de respuestas a comentarios
+    const [mensajeError, setMensajeError] = useState('');  // Estado para mostrar errores en las respuestas
 
-    const [respuestasVisibles, setRespuestasVisibles] = useState({}); // Estado para controlar la visibilidad de las respuestas
+    const [respuestasVisibles, setRespuestasVisibles] = useState({});  // Estado para controlar la visibilidad de las respuestas
 
-    const apiUrlAgregarComentario = "http://127.0.0.1:8000/api/v5/agregar/comentario/";
-    const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;
+    const apiUrlAgregarComentario = "http://127.0.0.1:8000/api/v5/agregar/comentario/";  // URL para agregar comentarios
+    const apiUrl = `http://127.0.0.1:8000/api/v3/producto/productos/${id}`;  // URL para obtener los detalles del producto
 
+    // Función para obtener los datos del producto y los comentarios asociados
     const Obtener = async () => {
         try {
             const data = await Get(apiUrl);
@@ -41,14 +42,16 @@ const Producto = () => {
 
             const comentariosData = await Get(apiUrlAgregarComentario);
             const comentariosFiltrados = comentariosData.filter(comentario => comentario.producto_comentario === parseInt(id));
+            //Comentarios filtrados sea igual al id del producto
 
             const respuestasData = await Get('http://127.0.0.1:8000/api/v5/agregar/respuesta/');
             const comentariosConRespuestas = comentariosFiltrados.map(comentario => ({
                 ...comentario,
                 respuestas: respuestasData.filter(respuesta => respuesta.respuesta_comentario === comentario.id)
             }));
+            ///Filtro de respuestas para cada comentario que sea igual al id del comentario
             
-            setListaRespuestas(comentariosConRespuestas);
+            setListaRespuestas(comentariosConRespuestas);  // Guarda los comentarios con sus respuestas
         } catch (error) {
             console.error("Error al obtener los datos del producto o los comentarios:", error);
         }
@@ -58,10 +61,7 @@ const Producto = () => {
         Obtener();
     }, []);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
+    // Al cambiar la cantidad o el precio base, actualiza el precio total
     useEffect(() => {
         setPrecioTotal(precioBase * cantidad);
     }, [cantidad, precioBase]);
@@ -76,6 +76,7 @@ const Producto = () => {
         }
     };
 
+    // Función para crear un nuevo comentario
     const CrearComentario = async () => {
         if (comentarioTexto && comentarioRating) {
             const nuevoComentario = {
@@ -87,10 +88,11 @@ const Producto = () => {
             await darDatos(nuevoComentario, apiUrlAgregarComentario);
             setComentarioTexto(""); 
             setComentarioRating(0);
-            Obtener();
+            Obtener();  // Actualiza la lista de comentarios tras agregar uno nuevo
         }
     };
 
+    // Función para enviar una respuesta a un comentario
     const enviarRespuesta = async (infoComentario) => {
         if (!respuestaComentario.trim()) {
             setMensajeError("La respuesta no puede estar vacía.");
@@ -106,13 +108,14 @@ const Producto = () => {
         setRespuestaComentario('');
         setComentarioRespondiendo(null);
         setMensajeError('');
-        Obtener();
+        Obtener();  // Actualiza la lista de respuestas tras agregar una nueva
     };
 
+    // Alterna la visibilidad de las respuestas para un comentario dado
     const toggleRespuestas = (id) => {
         setRespuestasVisibles(prevState => ({
             ...prevState,
-            [id]: !prevState[id] // Alterna la visibilidad
+            [id]: !prevState[id]
         }));
     };
 
@@ -148,6 +151,7 @@ const Producto = () => {
                             />
                             <p className="rating-display">
                                 {rating === 0 ? "Califica este producto" : `Calificación: ${rating} estrella${rating > 1 ? 's' : ''}`}
+                                {/* Mostrar la calificación del producto rating > 0 ? Mostrar el número de estrellas : Mostrar el texto "Califica este producto" */}
                             </p>
                         </div>
                     </div>
@@ -164,17 +168,23 @@ const Producto = () => {
                             className="comment-textarea"
                         />
                         <ReactStars
+                            // Cambiar el número de estrellas
                             count={5}
+                            // Cambiar el valor de la calificación
                             onChange={setComentarioRating}
+                            ///Cambiar el tamaño de la estrella
                             size={30}
                             activeColor="#ffd700"
+                            ///Cambiar el valor de la calificación
                             value={comentarioRating}
                         />
                         <button className="submit-comment" onClick={CrearComentario}>Publicar comentario</button>
+                        {/* Botón para publicar un comentario */}
                     </div>
 
                     <div className="comments-list">
                         {listaRespuestas.map((comentario, index) => (
+                            ///Renderizar cada comentario con el map
                             <div key={index} className="comment-item">
                                 <img src="src/img/marzo.png" alt="Avatar" className="comment-avatar" />
                                 <div className="comment-content">
