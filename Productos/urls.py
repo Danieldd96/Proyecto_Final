@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import CategoriaViewSet, ProductosViewSet, ResenasViewSet, BusquedaProductoView
+from .views import ActualizarProducto, CategoriaViewSet, ProductosViewSet, ResenasViewSet, BusquedaProductoView
 
 categoria_router = routers.DefaultRouter()
 categoria_router.register(r'categorias', CategoriaViewSet)
@@ -16,5 +16,6 @@ urlpatterns = [
     path('producto/', include(productos_router.urls)),
     path('resenas/', include(resenas_router.urls)),
     path('busqueda/', BusquedaProductoView.as_view()),
+    path('actualizar/<int:id>/', ActualizarProducto.as_view()),
     
 ]   

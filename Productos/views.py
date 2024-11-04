@@ -5,7 +5,9 @@ from .models import Categoria,Productos,Resenas
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from requests import put
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
@@ -13,10 +15,17 @@ class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
+class ActualizarProducto(generics.UpdateAPIView):
+    permission_classes = [AllowAny]
+    queryset = Productos.objects.all()
+    serializer_class = ProductosSerializer
+    lookup_field = 'id'
+
 class ProductosViewSet(viewsets.ModelViewSet):
     queryset = Productos.objects.all()
     serializer_class = ProductosSerializer
 
+    
 class ResenasViewSet(viewsets.ModelViewSet):
     queryset = Resenas.objects.all()
     serializer_class = ResenasSerializer

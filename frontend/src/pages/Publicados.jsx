@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/navbar'
 import { Get } from '../hooks/Get'
+import { actualizardatos } from '../hooks/Put'
 import '../styles/publicados.css'
 
 const Publicados = () => {
@@ -46,14 +47,26 @@ const Publicados = () => {
     }
 
     const editarProducto = (e) => {
-        const { name, value, files } = e.target
-
+        const { name, value } = e.target
+        setProductoEditado((prev) => ({
+            ...prev,
+            [name]: value, // Actualiza el campo correspondiente en productoEditado
+        }))
     }
 
-    const handleGuardarProducto = () => {
-        console.log('Producto guardado:', productoEditado)
-        cerrarModal()
-    }
+    const handleGuardarProducto = async () => {
+        try {
+            console.log('Producto a actualizar:', productoEditado.id); // Verifica qué se está enviando
+            await actualizardatos(`http://127.0.0.1:8000/api/v3/actualizar/${productoEditado.id}/`, productoEditado)
+            setProductos((prev) =>
+                prev.map((prod) => (prod.id === productoEditado.id ? productoEditado : prod))
+            );
+            cerrarModal();
+        } catch (error) {
+            console.error('Error al guardar los cambios del producto:', error);
+        }
+    };
+    
 
     return (
         <div>
@@ -117,12 +130,6 @@ const Publicados = () => {
                             value={productoEditado.ubicacion_producto}
                             onChange={editarProducto}
                             placeholder="Ubicación del producto"
-                        />
-                        <input
-                            type='file'
-                            name='imagen'
-                            onChange={editarProducto}
-                            accept="image/*"
                         />
                         <button onClick={handleGuardarProducto}>Guardar Cambios</button>
                         <button onClick={cerrarModal}>Cerrar</button>
